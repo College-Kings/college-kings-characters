@@ -4,15 +4,15 @@ init python:
 
 from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
-from game.detective.Detective_ren import Detective
 from game.characters.Frat_ren import Frat
 
 if TYPE_CHECKING:
     from renpy import store
     import renpy.exports as renpy
 
+    from game.detective.Detective_ren import Detective
     from game.characters.CharacterService_ren import CharacterService
     from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
     from game.characters.Relationship_ren import Relationship
@@ -25,7 +25,7 @@ class PlayableCharacter:
     profile_picture: str = ""
     money: int = 0
     inventory: list[str] = field(default_factory=list)
-    detective: Detective = Detective.PROFESSIONAL
+    detective: Optional[Detective] = None
     relationships: dict[NonPlayableCharacter, Relationship] = field(
         default_factory=dict
     )
