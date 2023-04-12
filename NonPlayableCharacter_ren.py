@@ -4,7 +4,7 @@ init python:
 
 from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import ClassVar, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 
 if TYPE_CHECKING:
@@ -17,13 +17,8 @@ if TYPE_CHECKING:
 
 @dataclass
 class NonPlayableCharacter:
-    characters: ClassVar[dict[str, NonPlayableCharacter]] = {}
-
     name: str
     username: str = ""
-    # required_frat: Frat | None = required_frat
-    # preferred_reputation = preferred_reputation
-    # possible_relationships: list[Relationship] | None = possible_relationships
 
     relationships: dict[PlayableCharacter, Relationship] = field(default_factory=dict)
     mood: Moods = Moods.NORMAL
@@ -44,8 +39,6 @@ class NonPlayableCharacter:
 
         if not self.profile_pictures:
             self.profile_pictures = CharacterService.get_profile_pictures(self.name)
-
-        NonPlayableCharacter.characters[self.name] = self
 
     @property
     def profile_picture(self) -> str:
