@@ -23,7 +23,7 @@ class CharacterService:
         if not hasattr(character, "relationships"):
             character.relationships = {}
 
-        return character.relationships.setdefault(target, Relationship.FRIEND)
+        return character.relationships.setdefault(target.name, Relationship.FRIEND)
 
     @staticmethod
     def has_relationship(
@@ -51,13 +51,14 @@ class CharacterService:
         if not hasattr(target, "relationships"):
             target.relationships = {}
 
-        if relationship == character.relationships.setdefault(
-            target, Relationship.FRIEND
+        if (
+            character.relationships.setdefault(target.name, Relationship.FRIEND)
+            == relationship
         ):
             return
 
-        character.relationships[target] = relationship
-        target.relationships[character] = relationship
+        character.relationships[target.name] = relationship
+        target.relationships[character.name] = relationship
 
     @staticmethod
     def get_mood(character: NonPlayableCharacter) -> Moods:
@@ -109,7 +110,9 @@ class CharacterService:
         if target is None:
             target = store.mc
 
-        return character.relationships[target] == Relationship.GIRLFRIEND
+        return CharacterService.has_relationship(
+            target.name, Relationship.GIRLFRIEND, store.mc
+        )
 
     @staticmethod
     def is_fwb(
@@ -118,7 +121,9 @@ class CharacterService:
         if target is None:
             target = store.mc
 
-        return character.relationships[target] == Relationship.FWB
+        return CharacterService.has_relationship(
+            target.name, Relationship.FWB, store.mc
+        )
 
     @staticmethod
     def is_dating(
@@ -127,7 +132,9 @@ class CharacterService:
         if target is None:
             target = store.mc
 
-        return character.relationships[target] == Relationship.DATING
+        return CharacterService.has_relationship(
+            target.name, Relationship.DATING, store.mc
+        )
 
     @staticmethod
     def is_kissed(
@@ -136,7 +143,9 @@ class CharacterService:
         if target is None:
             target = store.mc
 
-        return character.relationships[target] == Relationship.KISSED
+        return CharacterService.has_relationship(
+            target.name, Relationship.KISSED, store.mc
+        )
 
     @staticmethod
     def is_friend(
@@ -145,7 +154,9 @@ class CharacterService:
         if target is None:
             target = store.mc
 
-        return character.relationships[target] == Relationship.FRIEND
+        return CharacterService.has_relationship(
+            target.name, Relationship.FRIEND, store.mc
+        )
 
     @staticmethod
     def is_ex(
@@ -154,7 +165,7 @@ class CharacterService:
         if target is None:
             target = store.mc
 
-        return character.relationships[target] == Relationship.EX
+        return CharacterService.has_relationship(target.name, Relationship.EX, store.mc)
 
     @staticmethod
     def is_mad(character: NonPlayableCharacter) -> bool:
