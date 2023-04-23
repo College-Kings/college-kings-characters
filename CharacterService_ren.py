@@ -1,16 +1,18 @@
-"""renpy
-init 0 python:
-"""
-
 from __future__ import annotations
-from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    import renpy.exports as renpy
-    from game.characters.Relationship_ren import Relationship
-    from game.characters.Moods_ren import Moods
-    from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-    from game.characters.PlayableCharacters_ren import PlayableCharacter
+from renpy import store
+import renpy.exports as renpy
+
+
+from game.characters.Relationship_ren import Relationship
+from game.characters.Moods_ren import Moods
+from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
+from game.characters.PlayableCharacters_ren import PlayableCharacter
+
+
+"""renpy
+init python:
+"""
 
 
 class CharacterService:
@@ -27,16 +29,22 @@ class CharacterService:
     def has_relationship(
         character: NonPlayableCharacter,
         relationship: Relationship,
-        target: PlayableCharacter,
+        target: PlayableCharacter = None,
     ) -> bool:
+        if target is None:
+            target = store.mc
+
         return CharacterService.get_relationship(character, target) == relationship
 
     @staticmethod
     def set_relationship(
         character: NonPlayableCharacter,
         relationship: Relationship,
-        target: PlayableCharacter,
+        target: PlayableCharacter = None,
     ) -> None:
+        if target is None:
+            target = store.mc
+
         if not hasattr(character, "relationships"):
             character.relationships = {}
 
@@ -96,20 +104,38 @@ class CharacterService:
 
     @staticmethod
     def is_girlfriend(
-        character: NonPlayableCharacter, target: PlayableCharacter
+        character: NonPlayableCharacter, target: PlayableCharacter = None
     ) -> bool:
+        if target is None:
+            target = store.mc
+
         return character.relationships[target] == Relationship.GIRLFRIEND
 
     @staticmethod
-    def is_fwb(character: NonPlayableCharacter, target: PlayableCharacter) -> bool:
+    def is_fwb(
+        character: NonPlayableCharacter, target: PlayableCharacter = None
+    ) -> bool:
+        if target is None:
+            target = store.mc
+
         return character.relationships[target] == Relationship.FWB
 
     @staticmethod
-    def is_friend(character: NonPlayableCharacter, target: PlayableCharacter) -> bool:
+    def is_friend(
+        character: NonPlayableCharacter, target: PlayableCharacter = None
+    ) -> bool:
+        if target is None:
+            target = store.mc
+
         return character.relationships[target] == Relationship.FRIEND
 
     @staticmethod
-    def is_ex(character: NonPlayableCharacter, target: PlayableCharacter) -> bool:
+    def is_ex(
+        character: NonPlayableCharacter, target: PlayableCharacter = None
+    ) -> bool:
+        if target is None:
+            target = store.mc
+
         return character.relationships[target] == Relationship.EX
 
     @staticmethod
