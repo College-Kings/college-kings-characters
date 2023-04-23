@@ -121,6 +121,24 @@ class CharacterService:
         return character.relationships[target] == Relationship.FWB
 
     @staticmethod
+    def is_dating(
+        character: NonPlayableCharacter, target: PlayableCharacter = None
+    ) -> bool:
+        if target is None:
+            target = store.mc
+
+        return character.relationships[target] == Relationship.DATING
+
+    @staticmethod
+    def is_kissed(
+        character: NonPlayableCharacter, target: PlayableCharacter = None
+    ) -> bool:
+        if target is None:
+            target = store.mc
+
+        return character.relationships[target] == Relationship.KISSED
+
+    @staticmethod
     def is_friend(
         character: NonPlayableCharacter, target: PlayableCharacter = None
     ) -> bool:
