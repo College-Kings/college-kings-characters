@@ -25,3 +25,6 @@ class Relationship(IntEnum):
     LOYAL = enum.auto()  # Deprecated, Resolves to FWB if had sex, else Friend
     TAMED = enum.auto()  # Deprecated, Resolves to FWB if had sex, else Friend
     GIRLFRIEND = enum.auto()
+
+
+# TODO Cameron - Bro
