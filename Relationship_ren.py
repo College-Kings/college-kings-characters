@@ -1,9 +1,9 @@
+import enum
+from enum import IntEnum
+
 """renpy
 init python:
 """
-
-import enum
-from enum import IntEnum
 
 
 class Relationship(IntEnum):
@@ -25,6 +25,10 @@ class Relationship(IntEnum):
     LOYAL = enum.auto()  # Deprecated, Resolves to FWB if had sex, else Friend
     TAMED = enum.auto()  # Deprecated, Resolves to FWB if had sex, else Friend
     GIRLFRIEND = enum.auto()
+
+    @classmethod
+    def _missing_(cls, value):
+        return cls.FRIEND
 
 
 # TODO Cameron - Bro
