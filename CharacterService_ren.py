@@ -92,7 +92,7 @@ class CharacterService:
 
     @staticmethod
     def get_profile_pictures(character_name: str) -> list[str]:
-        directory: str = f"images/characters/{character_name.lower()}"
+        directory: str = f"characters/images/{character_name.lower()}"
 
         try:
             return [file for file in renpy.list_files() if file.startswith(directory)]
@@ -100,7 +100,7 @@ class CharacterService:
             return [
                 file
                 for file in renpy.list_files()
-                if file.startswith("images/characters/chloe")
+                if file.startswith("characters/images/chloe")
             ]
 
     @staticmethod
