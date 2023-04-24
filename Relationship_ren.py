@@ -20,7 +20,7 @@ class Relationship(IntEnum):
     LIKES = enum.auto()  # Deprecated, Resolves to Dating
     TRUST = enum.auto()  # Deprecated, Resolves to Dating
     BRO = enum.auto()  # Deprecated, Resolves to Friend
-    KISS = enum.auto()  # Deprecated, Resolves to Friend
+    KISS = enum.auto()  # Deprecated, Resolves to Kissed
     FWB = enum.auto()
     LOYAL = enum.auto()  # Deprecated, Resolves to FWB if had sex, else Friend
     TAMED = enum.auto()  # Deprecated, Resolves to FWB if had sex, else Friend
