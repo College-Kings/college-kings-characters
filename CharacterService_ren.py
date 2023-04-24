@@ -114,7 +114,7 @@ class CharacterService:
             target = store.mc
 
         return CharacterService.has_relationship(
-            target, Relationship.GIRLFRIEND, store.mc
+            character, Relationship.GIRLFRIEND, target
         )
 
     @staticmethod
@@ -124,7 +124,7 @@ class CharacterService:
         if target is None:
             target = store.mc
 
-        return CharacterService.has_relationship(target, Relationship.FWB, store.mc)
+        return CharacterService.has_relationship(character, Relationship.FWB, target)
 
     @staticmethod
     def is_dating(
@@ -133,7 +133,7 @@ class CharacterService:
         if target is None:
             target = store.mc
 
-        return CharacterService.has_relationship(target, Relationship.DATING, store.mc)
+        return CharacterService.has_relationship(character, Relationship.DATING, target)
 
     @staticmethod
     def is_kissed(
@@ -142,7 +142,7 @@ class CharacterService:
         if target is None:
             target = store.mc
 
-        return CharacterService.has_relationship(target, Relationship.KISSED, store.mc)
+        return CharacterService.has_relationship(character, Relationship.KISSED, target)
 
     @staticmethod
     def is_friend(
@@ -151,7 +151,7 @@ class CharacterService:
         if target is None:
             target = store.mc
 
-        return CharacterService.has_relationship(target, Relationship.FRIEND, store.mc)
+        return CharacterService.has_relationship(character, Relationship.FRIEND, target)
 
     @staticmethod
     def is_ex(
@@ -160,7 +160,7 @@ class CharacterService:
         if target is None:
             target = store.mc
 
-        return CharacterService.has_relationship(target, Relationship.EX, store.mc)
+        return CharacterService.has_relationship(character, Relationship.EX, target)
 
     @staticmethod
     def is_mad(character: NonPlayableCharacter) -> bool:
