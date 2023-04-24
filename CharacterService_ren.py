@@ -18,8 +18,11 @@ init python:
 class CharacterService:
     @staticmethod
     def get_relationship(
-        character: NonPlayableCharacter, target: PlayableCharacter
+        character: NonPlayableCharacter, target: PlayableCharacter = None
     ) -> Relationship:
+        if target is None:
+            target = store.mc
+
         if not hasattr(character, "relationships"):
             character.relationships = {}
 
