@@ -7,7 +7,7 @@ init python:
 
 
 class Relationship(Enum):
-    Stranger = enum.auto()
+    STRANGER = enum.auto()
     EX = enum.auto()
     MAD = enum.auto()  # Deprecated, Resolves to Moods.MAD
     THREATEN = enum.auto()  # Deprecated, Resolves to Friend
