@@ -1,18 +1,15 @@
+from __future__ import annotations
+from dataclasses import dataclass, field
+
+from game.characters.CharacterService_ren import CharacterService
+from game.characters.Moods_ren import Moods
+from game.characters.Relationship_ren import Relationship
+from game.characters.PlayableCharacters_ren import PlayableCharacter
+from game.phone.Message_ren import Message
+
 """renpy
 init python:
 """
-
-from __future__ import annotations
-from dataclasses import dataclass, field
-from typing import TYPE_CHECKING
-
-
-if TYPE_CHECKING:
-    from game.characters.CharacterService_ren import CharacterService
-    from game.characters.Moods_ren import Moods
-    from game.characters.Relationship_ren import Relationship
-    from game.characters.PlayableCharacters_ren import PlayableCharacter
-    from game.phone.Message_ren import Message
 
 
 @dataclass
