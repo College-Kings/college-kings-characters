@@ -68,6 +68,10 @@ class CharacterService:
         return character.mood
 
     @staticmethod
+    def has_mood(character: NonPlayableCharacter, mood: Moods) -> bool:
+        return mood == character.mood or character.mood & mood == mood
+
+    @staticmethod
     def set_mood(character: NonPlayableCharacter, mood: Moods) -> None:
         if mood == character.mood:
             return
@@ -164,4 +168,8 @@ class CharacterService:
 
     @staticmethod
     def is_mad(character: NonPlayableCharacter) -> bool:
-        return Moods.MAD in character.mood
+        return CharacterService.has_mood(character, Moods.MAD)
+
+    @staticmethod
+    def is_threatened(character: NonPlayableCharacter) -> bool:
+        return CharacterService.has_mood(character, Moods.THREATENED)
