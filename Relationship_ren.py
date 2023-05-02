@@ -1,12 +1,13 @@
 import enum
-from enum import IntEnum
+from enum import Enum
 
 """renpy
 init python:
 """
 
 
-class Relationship(IntEnum):
+class Relationship(Enum):
+    Stranger = enum.auto()
     EX = enum.auto()
     MAD = enum.auto()  # Deprecated, Resolves to Moods.MAD
     THREATEN = enum.auto()  # Deprecated, Resolves to Friend
@@ -29,6 +30,3 @@ class Relationship(IntEnum):
     @classmethod
     def _missing_(cls, value):
         return cls.FRIEND
-
-
-# TODO Cameron - Bro
