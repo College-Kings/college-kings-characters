@@ -1,7 +1,6 @@
 import enum
 from enum import Enum
 
-
 """renpy
 init python:
 """

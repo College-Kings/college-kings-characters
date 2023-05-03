@@ -4,7 +4,6 @@ from dataclasses import dataclass, field
 from game.characters.CharacterService_ren import CharacterService
 from game.characters.Moods_ren import Moods
 from game.characters.Relationship_ren import Relationship
-from game.characters.PlayableCharacters_ren import PlayableCharacter
 from game.phone.Message_ren import Message
 
 """renpy
@@ -17,7 +16,7 @@ class NonPlayableCharacter:
     name: str
     username: str = ""
 
-    relationships: dict[PlayableCharacter, Relationship] = field(default_factory=dict)
+    relationships: dict[str, Relationship] = field(default_factory=dict)
     mood: Moods = Moods.NORMAL
 
     profile_pictures: list[str] = field(default_factory=list)
@@ -25,7 +24,7 @@ class NonPlayableCharacter:
     has_had_sex_with_mc: bool = False
 
     is_competitive: bool = False
-    vindictive_characters: list[NonPlayableCharacter] = ()
+    vindictive_characters: tuple[NonPlayableCharacter, ...] = ()
     is_talkative: bool = False
 
     pending_text_messages: list[Message] = field(default_factory=list)
