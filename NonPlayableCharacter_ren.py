@@ -21,8 +21,12 @@ class NonPlayableCharacter:
     mood: Moods = Moods.NORMAL
 
     profile_pictures: list[str] = field(default_factory=list)
-    points = 0
-    has_had_sex_with_mc = False
+    points: int = 0
+    has_had_sex_with_mc: bool = False
+
+    is_competitive: bool = False
+    vindictive_characters: list[NonPlayableCharacter] = ()
+    is_talkative: bool = False
 
     pending_text_messages: list[Message] = field(default_factory=list)
     text_messages: list[Message] = field(default_factory=list)
