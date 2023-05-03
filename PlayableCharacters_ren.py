@@ -1,15 +1,16 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import Optional
-
-from game.characters.Frat_ren import Frat
+from typing import Optional, TYPE_CHECKING
 
 from renpy import store
 import renpy.exports as renpy
 
-from game.detective.Detective_ren import Detective
+from game.characters.Frat_ren import Frat
 from game.characters.CharacterService_ren import CharacterService
 from game.characters.Relationship_ren import Relationship
+
+if TYPE_CHECKING:
+    from game.detective.Detective_ren import Detective
 
 """renpy
 init python:

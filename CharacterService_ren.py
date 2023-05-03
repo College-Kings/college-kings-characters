@@ -1,13 +1,15 @@
 from __future__ import annotations
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
 from renpy import store
 import renpy.exports as renpy
 
 from game.characters.Relationship_ren import Relationship
 from game.characters.Moods_ren import Moods
-from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-from game.characters.PlayableCharacters_ren import PlayableCharacter
+
+if TYPE_CHECKING:
+    from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
+    from game.characters.PlayableCharacters_ren import PlayableCharacter
 
 """renpy
 init python:
