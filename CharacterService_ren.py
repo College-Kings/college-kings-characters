@@ -1,14 +1,13 @@
 from __future__ import annotations
+from typing import Optional
 
 from renpy import store
 import renpy.exports as renpy
-
 
 from game.characters.Relationship_ren import Relationship
 from game.characters.Moods_ren import Moods
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.characters.PlayableCharacters_ren import PlayableCharacter
-
 
 """renpy
 init python:
@@ -18,7 +17,7 @@ init python:
 class CharacterService:
     @staticmethod
     def get_relationship(
-        character: NonPlayableCharacter, target: PlayableCharacter = None
+        character: NonPlayableCharacter, target: Optional[PlayableCharacter] = None
     ) -> Relationship:
         if target is None:
             target = store.mc
@@ -32,7 +31,7 @@ class CharacterService:
     def has_relationship(
         character: NonPlayableCharacter,
         relationship: Relationship,
-        target: PlayableCharacter = None,
+        target: Optional[PlayableCharacter] = None,
     ) -> bool:
         if target is None:
             target = store.mc
@@ -43,7 +42,7 @@ class CharacterService:
     def set_relationship(
         character: NonPlayableCharacter,
         relationship: Relationship,
-        target: PlayableCharacter = None,
+        target: Optional[PlayableCharacter] = None,
     ) -> None:
         if target is None:
             target = store.mc
@@ -112,7 +111,7 @@ class CharacterService:
 
     @staticmethod
     def is_girlfriend(
-        character: NonPlayableCharacter, target: PlayableCharacter = None
+        character: NonPlayableCharacter, target: Optional[PlayableCharacter] = None
     ) -> bool:
         if target is None:
             target = store.mc
@@ -123,7 +122,7 @@ class CharacterService:
 
     @staticmethod
     def is_fwb(
-        character: NonPlayableCharacter, target: PlayableCharacter = None
+        character: NonPlayableCharacter, target: Optional[PlayableCharacter] = None
     ) -> bool:
         if target is None:
             target = store.mc
@@ -132,7 +131,7 @@ class CharacterService:
 
     @staticmethod
     def is_dating(
-        character: NonPlayableCharacter, target: PlayableCharacter = None
+        character: NonPlayableCharacter, target: Optional[PlayableCharacter] = None
     ) -> bool:
         if target is None:
             target = store.mc
@@ -141,7 +140,7 @@ class CharacterService:
 
     @staticmethod
     def is_kissed(
-        character: NonPlayableCharacter, target: PlayableCharacter = None
+        character: NonPlayableCharacter, target: Optional[PlayableCharacter] = None
     ) -> bool:
         if target is None:
             target = store.mc
@@ -150,7 +149,7 @@ class CharacterService:
 
     @staticmethod
     def is_friend(
-        character: NonPlayableCharacter, target: PlayableCharacter = None
+        character: NonPlayableCharacter, target: Optional[PlayableCharacter] = None
     ) -> bool:
         if target is None:
             target = store.mc
@@ -159,7 +158,7 @@ class CharacterService:
 
     @staticmethod
     def is_ex(
-        character: NonPlayableCharacter, target: PlayableCharacter = None
+        character: NonPlayableCharacter, target: Optional[PlayableCharacter] = None
     ) -> bool:
         if target is None:
             target = store.mc

@@ -9,7 +9,6 @@ import renpy.exports as renpy
 
 from game.detective.Detective_ren import Detective
 from game.characters.CharacterService_ren import CharacterService
-from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.characters.Relationship_ren import Relationship
 
 """renpy
@@ -25,9 +24,7 @@ class PlayableCharacter:
     money: int = 0
     inventory: list[str] = field(default_factory=list)
     detective: Optional[Detective] = None
-    relationships: dict[NonPlayableCharacter, Relationship] = field(
-        default_factory=dict
-    )
+    relationships: dict[str, Relationship] = field(default_factory=dict)
     frat: Frat = Frat.WOLVES
     daddy_name: str = "Daddy"
 

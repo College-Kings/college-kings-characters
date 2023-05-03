@@ -18,6 +18,7 @@ MASCULINE_COLORS: tuple[str, ...] = (
     "#ff8afb",
     "#5fc9f8",
 )
+
 FEMININE_COLORS: tuple[str, ...] = (
     "#05F0D5",
     "#800080",
