@@ -46,3 +46,9 @@ class NonPlayableCharacter:
 
     def __hash__(self) -> int:
         return hash(self.name)
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self.name})"
+
+    def __str__(self) -> str:
+        return self.name
