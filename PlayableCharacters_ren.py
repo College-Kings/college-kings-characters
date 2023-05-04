@@ -21,7 +21,7 @@ init python:
 class PlayableCharacter:
     name: str = ""
     username: str = ""
-    profile_picture: str = ""
+    profile_pictures: list[str] = field(default_factory=list)
     money: int = 0
     inventory: list[str] = field(default_factory=list)
     detective: Optional[Detective] = None
@@ -36,11 +36,15 @@ class PlayableCharacter:
         if not self.username:
             self.username = self.name
 
-        if not self.profile_picture:
-            self.profile_picture = CharacterService.get_profile_pictures("mc")[0]
+        if not self.profile_pictures:
+            self.profile_pictures = CharacterService.get_profile_pictures("mc")
 
     def __hash__(self) -> int:
         return hash(self.name)
+
+    @property
+    def profile_picture(self) -> str:
+        return self.profile_pictures[0]
 
     # @property
     # def fighter(self):
