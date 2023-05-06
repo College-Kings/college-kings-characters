@@ -49,5 +49,6 @@ default wolf = NonPlayableCharacter(_("Wolf"))
 #endregion NonPlayableCharacters
 
 #region PlayableCharacters
+default name = "Alex"
 default mc = PlayableCharacter()
 #endregion PlayableCharacters
