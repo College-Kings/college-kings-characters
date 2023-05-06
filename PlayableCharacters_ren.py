@@ -24,6 +24,7 @@ class PlayableCharacter(ICharacter):
     name: str = ""
     username: str = ""
     profile_pictures: list[str] = field(default_factory=list)
+    profile_picture: str = ""
     money: int = 0
     inventory: list[str] = field(default_factory=list)
     detective: Optional[Detective] = None
@@ -41,12 +42,11 @@ class PlayableCharacter(ICharacter):
         if not self.profile_pictures:
             self.profile_pictures = CharacterService.get_profile_pictures("mc")
 
+        if not self.profile_picture:
+            self.profile_picture = self.profile_pictures[0]
+
     def __hash__(self) -> int:
         return hash(self.name)
-
-    @property
-    def profile_picture(self) -> str:
-        return self.profile_pictures[0]
 
     @property
     def girlfriends(self) -> list[ICharacter]:
@@ -55,14 +55,6 @@ class PlayableCharacter(ICharacter):
             for npc in self.relationships
             if self.relationships[npc] == Relationship.GIRLFRIEND
         ]
-
-    # @property
-    # def fighter(self):
-    #     return self._fighter
-
-    # @fighter.setter
-    # def fighter(self, value: BasePlayer):
-    #     self._fighter = value
 
 
 mc: PlayableCharacter
