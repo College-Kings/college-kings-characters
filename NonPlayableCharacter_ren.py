@@ -2,6 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from game.characters.CharacterService_ren import CharacterService
+from game.characters.ICharacter_ren import ICharacter
 from game.characters.Moods_ren import Moods
 from game.characters.Relationship_ren import Relationship
 from game.phone.Message_ren import Message
@@ -12,11 +13,11 @@ init python:
 
 
 @dataclass
-class NonPlayableCharacter:
+class NonPlayableCharacter(ICharacter):
     name: str
     username: str = ""
 
-    relationships: dict[str, Relationship] = field(default_factory=dict)
+    relationships: dict[ICharacter, Relationship] = field(default_factory=dict)
     mood: Moods = Moods.NORMAL
 
     profile_pictures: list[str] = field(default_factory=list)

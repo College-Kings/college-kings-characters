@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional, TYPE_CHECKING
+from game.characters.ICharacter_ren import ICharacter
 
 import renpy.exports as renpy
 
@@ -19,14 +20,14 @@ init python:
 
 
 @dataclass
-class PlayableCharacter:
+class PlayableCharacter(ICharacter):
     name: str = ""
     username: str = ""
     profile_pictures: list[str] = field(default_factory=list)
     money: int = 0
     inventory: list[str] = field(default_factory=list)
     detective: Optional[Detective] = None
-    relationships: dict[str, Relationship] = field(default_factory=dict)
+    relationships: dict[ICharacter, Relationship] = field(default_factory=dict)
     frat: Frat = Frat.WOLVES
     daddy_name: str = "Daddy"
 
@@ -46,6 +47,14 @@ class PlayableCharacter:
     @property
     def profile_picture(self) -> str:
         return self.profile_pictures[0]
+
+    @property
+    def girlfriends(self) -> list[ICharacter]:
+        return [
+            npc
+            for npc in self.relationships
+            if self.relationships[npc] == Relationship.GIRLFRIEND
+        ]
 
     # @property
     # def fighter(self):
