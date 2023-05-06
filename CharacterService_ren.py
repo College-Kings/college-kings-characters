@@ -1,7 +1,6 @@
 from __future__ import annotations
 from typing import Optional, TYPE_CHECKING
 
-from renpy import store
 import renpy.exports as renpy
 
 from game.characters.Relationship_ren import Relationship
@@ -9,7 +8,7 @@ from game.characters.Moods_ren import Moods
 
 if TYPE_CHECKING:
     from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-    from game.characters.PlayableCharacters_ren import PlayableCharacter
+    from game.characters.PlayableCharacters_ren import PlayableCharacter, mc
 
 """renpy
 init python:
@@ -22,7 +21,7 @@ class CharacterService:
         character: NonPlayableCharacter, target: Optional[PlayableCharacter] = None
     ) -> Relationship:
         if target is None:
-            target = store.mc
+            target = mc
 
         if not hasattr(character, "relationships"):
             character.relationships = {}
@@ -36,7 +35,7 @@ class CharacterService:
         target: Optional[PlayableCharacter] = None,
     ) -> bool:
         if target is None:
-            target = store.mc
+            target = mc
 
         return CharacterService.get_relationship(character, target) == relationship
 
@@ -47,7 +46,7 @@ class CharacterService:
         target: Optional[PlayableCharacter] = None,
     ) -> None:
         if target is None:
-            target = store.mc
+            target = mc
 
         if not hasattr(character, "relationships"):
             character.relationships = {}
@@ -116,7 +115,7 @@ class CharacterService:
         character: NonPlayableCharacter, target: Optional[PlayableCharacter] = None
     ) -> bool:
         if target is None:
-            target = store.mc
+            target = mc
 
         return CharacterService.has_relationship(
             character, Relationship.GIRLFRIEND, target
@@ -127,7 +126,7 @@ class CharacterService:
         character: NonPlayableCharacter, target: Optional[PlayableCharacter] = None
     ) -> bool:
         if target is None:
-            target = store.mc
+            target = mc
 
         return CharacterService.has_relationship(character, Relationship.FWB, target)
 
@@ -136,7 +135,7 @@ class CharacterService:
         character: NonPlayableCharacter, target: Optional[PlayableCharacter] = None
     ) -> bool:
         if target is None:
-            target = store.mc
+            target = mc
 
         return CharacterService.has_relationship(character, Relationship.DATING, target)
 
@@ -145,7 +144,7 @@ class CharacterService:
         character: NonPlayableCharacter, target: Optional[PlayableCharacter] = None
     ) -> bool:
         if target is None:
-            target = store.mc
+            target = mc
 
         return CharacterService.has_relationship(character, Relationship.KISSED, target)
 
@@ -154,7 +153,7 @@ class CharacterService:
         character: NonPlayableCharacter, target: Optional[PlayableCharacter] = None
     ) -> bool:
         if target is None:
-            target = store.mc
+            target = mc
 
         return CharacterService.has_relationship(character, Relationship.FRIEND, target)
 
@@ -163,7 +162,7 @@ class CharacterService:
         character: NonPlayableCharacter, target: Optional[PlayableCharacter] = None
     ) -> bool:
         if target is None:
-            target = store.mc
+            target = mc
 
         return CharacterService.has_relationship(character, Relationship.EX, target)
 

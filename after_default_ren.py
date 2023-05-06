@@ -1,4 +1,18 @@
-from renpy import config, store
+from renpy import config
+
+from game.characters.NonPlayableCharacter_ren import (
+    chloe,
+    amber,
+    riley,
+    lindsey,
+    nora,
+    aubrey,
+    ryan,
+    imre,
+    charli,
+    josh,
+    chris,
+)
 
 """renpy
 init python:
@@ -6,32 +20,32 @@ init python:
 
 
 def npc_setup() -> None:
-    store.chloe.is_competitive = True
-    store.chloe.vindictive_characters = (store.nora,)
+    chloe.is_competitive = True
+    chloe.vindictive_characters = (nora,)
 
-    store.amber.is_competitive = True
-    store.amber.is_talkative = True
-    store.amber.vindictive_characters = (store.riley,)
+    amber.is_competitive = True
+    amber.is_talkative = True
+    amber.vindictive_characters = (riley,)
 
-    store.riley.is_competitive = True
-    store.riley.is_talkative = True
+    riley.is_competitive = True
+    riley.is_talkative = True
 
-    store.lindsey.is_competitive = True
-    store.lindsey.is_talkative = True
-    store.lindsey.vindictive_characters = (store.chloe,)
+    lindsey.is_competitive = True
+    lindsey.is_talkative = True
+    lindsey.vindictive_characters = (chloe,)
 
-    store.nora.is_talkative = True
-    store.nora.vindictive_characters = (store.chris, store.chloe)
+    nora.is_talkative = True
+    nora.vindictive_characters = (chris, chloe)
 
-    store.aubrey.is_competitive = True
+    aubrey.is_competitive = True
 
-    store.ryan.vindictive_characters = (store.imre,)
+    ryan.vindictive_characters = (imre,)
 
-    store.imre.vindictive_characters = (store.ryan,)
+    imre.vindictive_characters = (ryan,)
 
-    store.charli.is_competitive = True
+    charli.is_competitive = True
 
-    store.josh.is_competitive = True
+    josh.is_competitive = True
 
 
 config.after_default_callbacks.append(npc_setup)

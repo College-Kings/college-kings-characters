@@ -52,3 +52,52 @@ class NonPlayableCharacter:
 
     def __str__(self) -> str:
         return self.name
+
+
+aaron: NonPlayableCharacter
+adam: NonPlayableCharacter
+amber: NonPlayableCharacter
+aryssa: NonPlayableCharacter
+aubrey: NonPlayableCharacter
+autumn: NonPlayableCharacter
+beth: NonPlayableCharacter
+buyer: NonPlayableCharacter
+caleb: NonPlayableCharacter
+cameron: NonPlayableCharacter
+candy: NonPlayableCharacter
+charli: NonPlayableCharacter
+chloe: NonPlayableCharacter
+chris: NonPlayableCharacter
+dean: NonPlayableCharacter
+elijah: NonPlayableCharacter
+emily: NonPlayableCharacter
+emmy: NonPlayableCharacter
+evelyn: NonPlayableCharacter
+grayson: NonPlayableCharacter
+imre: NonPlayableCharacter
+iris: NonPlayableCharacter
+jenny: NonPlayableCharacter
+josh: NonPlayableCharacter
+julia: NonPlayableCharacter
+kai: NonPlayableCharacter
+kim: NonPlayableCharacter
+kourtney: NonPlayableCharacter
+lauren: NonPlayableCharacter
+lews_official: NonPlayableCharacter
+lindsey: NonPlayableCharacter
+mason: NonPlayableCharacter
+mr_lee: NonPlayableCharacter
+ms_rose: NonPlayableCharacter
+naomi: NonPlayableCharacter
+nora: NonPlayableCharacter
+parker: NonPlayableCharacter
+penelope: NonPlayableCharacter
+polly: NonPlayableCharacter
+riley: NonPlayableCharacter
+ryan: NonPlayableCharacter
+samantha: NonPlayableCharacter
+satin: NonPlayableCharacter
+sebastian: NonPlayableCharacter
+tom: NonPlayableCharacter
+trainer: NonPlayableCharacter
+wolf: NonPlayableCharacter
