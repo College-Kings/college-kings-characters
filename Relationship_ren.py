@@ -12,40 +12,26 @@ init python:
 
 
 class Relationship(Enum):
-    STRANGER = enum.auto()
-    EX = enum.auto()
-    MAD = enum.auto()  # Deprecated, Resolves to Moods.MAD
-    THREATEN = enum.auto()  # Deprecated, Resolves to Friend
-    MAKEFUN = enum.auto()  # Deprecated, Resolves to Friend
-    AWKWARD = enum.auto()  # Deprecated, Resolves to Friend
-    FRIEND = enum.auto()
-    KISSED = enum.auto()
-    MOVE = enum.auto()  # Deprecated, Resolves to Friend
-    DATE = enum.auto()  # Deprecated, Resolves to Dating
-    DATING = enum.auto()
-    LIKES = enum.auto()  # Deprecated, Resolves to Dating
-    TRUST = enum.auto()  # Deprecated, Resolves to Dating
-    BRO = enum.auto()  # Deprecated, Resolves to Friend
-    KISS = enum.auto()  # Deprecated, Resolves to Kissed
-    FWB = enum.auto()
-    LOYAL = enum.auto()  # Deprecated, Resolves to FWB if had sex, else Friend
-    TAMED = enum.auto()  # Deprecated, Resolves to FWB if had sex, else Friend
-    GIRLFRIEND = enum.auto()
+    STRANGER = -6
+    EX = -5
+    MAD = -4  # Deprecated, Resolves to Moods.MAD
+    THREATEN = -3  # Deprecated, Resolves to Friend
+    MAKEFUN = -2  # Deprecated, Resolves to Friend
+    AWKWARD = -1  # Deprecated, Resolves to Friend
+    FRIEND = 0
+    KISSED = 0.5
+    MOVE = 1  # Deprecated, Resolves to Friend
+    DATE = 2  # Deprecated, Resolves to Dating
+    DATING = 2.5
+    LIKES = 3  # Deprecated, Resolves to Dating
+    TRUST = 4  # Deprecated, Resolves to Dating
+    BRO = 5  # Deprecated, Resolves to Friend
+    KISS = 6  # Deprecated, Resolves to Kissed
+    FWB = 7
+    LOYAL = 8  # Deprecated, Resolves to FWB if had sex, else Friend
+    TAMED = 9  # Deprecated, Resolves to FWB if had sex, else Friend
+    GIRLFRIEND = 10
 
     @classmethod
     def _missing_(cls, value: object) -> Relationship:
-        if isinstance(_version, str) or _version < config.version:  # type: ignore
-            if value == -5:
-                return cls.EX
-            elif value == -4:
-                return cls.MAD
-            elif value == -3:
-                return cls.THREATEN
-            elif value == -2:
-                return cls.MAKEFUN
-            elif value == -1:
-                return cls.AWKWARD
-            elif value == 0:
-                return cls.FRIEND
-
         return cls.FRIEND
