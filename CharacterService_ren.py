@@ -28,7 +28,7 @@ class CharacterService:
             else:
                 user = getattr(store, character.name.lower().replace(" ", "_"))
         except AttributeError:
-            raise AttributeError(f"{vars(character)} is not a valid character.")
+            raise AttributeError(f"{character} is not a valid character.")
 
         return user
 
