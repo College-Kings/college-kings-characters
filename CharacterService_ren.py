@@ -2,13 +2,15 @@ from __future__ import annotations
 from typing import Optional, TYPE_CHECKING
 from game.characters.ICharacter_ren import ICharacter
 
+from renpy import store
 import renpy.exports as renpy
 
 from game.characters.Relationship_ren import Relationship
 from game.characters.Moods_ren import Moods
 
 if TYPE_CHECKING:
-    from game.characters.PlayableCharacters_ren import mc
+    from game.characters.PlayableCharacters_ren import PlayableCharacter, mc
+    from game.characters.NonPlayableCharacter_ren import lews_official
 
 """renpy
 init python:
@@ -16,6 +18,20 @@ init python:
 
 
 class CharacterService:
+    @staticmethod
+    def get_user(character: object) -> ICharacter:
+        try:
+            if isinstance(character, PlayableCharacter):
+                user = mc
+            elif character.name.lower() == "lewsofficial":
+                user = lews_official
+            else:
+                user = getattr(store, character.name.lower().replace(" ", "_"))
+        except AttributeError:
+            raise AttributeError(f"{vars(character)} is not a valid character.")
+
+        return user
+
     @staticmethod
     def get_relationship(
         character: ICharacter, target: Optional[ICharacter] = None
