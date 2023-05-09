@@ -45,7 +45,7 @@ class NonPlayableCharacter(ICharacter):
     def profile_picture(self) -> str:
         try:
             return self.profile_pictures[0]
-        except AttributeError:
+        except (AttributeError, IndexError):
             raise AttributeError(f"{self.name} has no profile pictures.")
 
     def __hash__(self) -> int:
