@@ -15,7 +15,6 @@ MASCULINE_COLORS: tuple[str, ...] = (
     "#fd9426",
     "#ffb210",
     "#ff1694",
-    "#ff8afb",
     "#5fc9f8",
 )
 
@@ -27,7 +26,8 @@ FEMININE_COLORS: tuple[str, ...] = (
     "#ecd9c9",
     "#f197f3",
     "#ff2aff",
-    "#ff00eaad",
+    "#ff8afb",
+    "#ff00ea",
 )
 
 
