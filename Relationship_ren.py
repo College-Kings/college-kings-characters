@@ -1,10 +1,5 @@
 from __future__ import annotations
-import enum
 from enum import Enum
-
-from renpy import config
-
-_version: tuple[int, int, int]
 
 """renpy
 init python:
