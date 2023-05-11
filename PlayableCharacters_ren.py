@@ -46,10 +46,16 @@ class PlayableCharacter(ICharacter):
             self.profile_picture = self.profile_pictures[0]
 
     def __hash__(self) -> int:
-        return hash(self.name)
+        return hash("mc")
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}({self.name})"
+
+    def __str__(self) -> str:
+        return self.name
+
+    def __eq__(self, other: object) -> bool:
+        return isinstance(other, PlayableCharacter)
 
     @property
     def girlfriends(self) -> list[ICharacter]:
