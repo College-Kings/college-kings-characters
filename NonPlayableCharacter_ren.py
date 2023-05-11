@@ -14,7 +14,7 @@ init python:
 
 @dataclass
 class NonPlayableCharacter(ICharacter):
-    name: str
+    name: str = ""
     username: str = ""
 
     relationships: dict[ICharacter, Relationship] = field(default_factory=dict)
