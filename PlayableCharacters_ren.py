@@ -54,8 +54,8 @@ class PlayableCharacter(ICharacter):
     def __str__(self) -> str:
         return self.name
 
-    def __eq__(self, other: object) -> bool:
-        return isinstance(other, PlayableCharacter)
+    def __eq__(self, __value: object) -> bool:
+        return isinstance(__value, PlayableCharacter)
 
     @property
     def girlfriends(self) -> list[ICharacter]:

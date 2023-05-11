@@ -57,11 +57,11 @@ class NonPlayableCharacter(ICharacter):
     def __str__(self) -> str:
         return self.name
 
-    def __eq__(self, other: object) -> bool:
-        if not isinstance(other, NonPlayableCharacter):
+    def __eq__(self, __value: object) -> bool:
+        if not isinstance(__value, NonPlayableCharacter):
             return NotImplemented
 
-        return self.name == other.name
+        return self.name == __value.name
 
 
 aaron: NonPlayableCharacter
