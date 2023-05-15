@@ -10,7 +10,6 @@ from game.characters.Moods_ren import Moods
 
 if TYPE_CHECKING:
     from game.characters.PlayableCharacters_ren import PlayableCharacter, mc
-    from game.characters.NonPlayableCharacter_ren import lews_official
 
 """renpy
 init python:
@@ -23,8 +22,6 @@ class CharacterService:
         try:
             if isinstance(character, PlayableCharacter):
                 user = mc
-            elif character.name.lower() == "lewsofficial":
-                user = lews_official
             else:
                 user = getattr(store, character.name.lower().replace(" ", "_"))
         except AttributeError:
