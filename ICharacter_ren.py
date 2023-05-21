@@ -1,5 +1,4 @@
 from __future__ import annotations
-from abc import ABC
 from game.characters.Moods_ren import Moods
 
 from game.characters.Relationship_ren import Relationship
@@ -10,7 +9,7 @@ init python:
 """
 
 
-class ICharacter(ABC):
+class ICharacter:
     name: str
     username: str
 
