@@ -57,12 +57,17 @@ class PlayableCharacter(ICharacter):
     def __eq__(self, __value: object) -> bool:
         return isinstance(__value, PlayableCharacter)
 
+    def repair_relationships(self) -> None:
+        local_relationships: dict[ICharacter, Relationship] = self.relationships.copy()
+        for npc, relationship in local_relationships.items():
+            self.relationships[CharacterService.get_user(npc)] = relationship
+
     @property
     def girlfriends(self) -> list[ICharacter]:
+        self.repair_relationships()
+
         return [
-            npc
-            for npc in self.relationships
-            if self.relationships[npc] == Relationship.GIRLFRIEND
+            npc for npc in self.relationships if CharacterService.is_girlfriend(npc)
         ]
 
 
