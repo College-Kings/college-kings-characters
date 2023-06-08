@@ -17,7 +17,6 @@ class ICharacter:
     mood: Moods
 
     profile_pictures: list[str]
-    profile_picture: str
     points: int
     has_had_sex_with_mc: bool
 
@@ -30,3 +29,7 @@ class ICharacter:
 
     pending_simplr_messages: list[Message]
     simplr_messages: list[Message]
+
+    @property
+    def profile_picture(self) -> str:
+        ...
