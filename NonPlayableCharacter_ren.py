@@ -63,6 +63,21 @@ class NonPlayableCharacter(ICharacter):
 
         return self.name == __value.name
 
+    def __setstate__(self, state: dict[str, object]) -> None:
+        if "pending_text_messages" not in state:
+            state["pending_text_messages"] = []
+
+        if "text_messages" not in state:
+            state["text_messages"] = []
+
+        if "pending_simplr_messages" not in state:
+            state["pending_simplr_messages"] = []
+
+        if "simplr_messages" not in state:
+            state["simplr_messages"] = []
+
+        self.__dict__ = state
+
 
 aaron: NonPlayableCharacter
 adam: NonPlayableCharacter
