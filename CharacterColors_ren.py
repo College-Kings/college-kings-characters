@@ -31,7 +31,7 @@ FEMININE_COLORS: tuple[str, ...] = (
 )
 
 
-class CharacterColors:
+class CharacterColor:
     index = 0
 
     @classmethod
