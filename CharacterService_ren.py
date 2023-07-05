@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Optional, TYPE_CHECKING
+from typing import Iterable, Optional, TYPE_CHECKING
 from game.characters.ICharacter_ren import ICharacter
 
 from renpy import store
@@ -124,6 +124,19 @@ class CharacterService:
             ]
 
     @staticmethod
+    def is_exclusive_girlfriend(
+        character: ICharacter, target: Optional[ICharacter] = None
+    ) -> bool:
+        if target is None:
+            target = mc
+
+        return any(
+            CharacterService.is_girlfriend(npc)
+            for npc in target.relationships
+            if npc != character
+        )
+
+    @staticmethod
     def is_girlfriend(
         character: ICharacter, target: Optional[ICharacter] = None
     ) -> bool:
@@ -136,7 +149,7 @@ class CharacterService:
 
     @staticmethod
     def is_girlfriends(
-        characters: list[ICharacter], target: Optional[ICharacter] = None
+        characters: Iterable[ICharacter], target: Optional[ICharacter] = None
     ) -> bool:
         if target is None:
             target = mc
@@ -147,11 +160,33 @@ class CharacterService:
         )
 
     @staticmethod
+    def is_exclusive(
+        character: ICharacter, target: Optional[ICharacter] = None
+    ) -> bool:
+        if target is None:
+            target = mc
+
+        return any(
+            CharacterService.is_girlfriend(npc) or CharacterService.is_fwb(npc)
+            for npc in target.relationships
+            if npc != character
+        )
+
+    @staticmethod
     def is_fwb(character: ICharacter, target: Optional[ICharacter] = None) -> bool:
         if target is None:
             target = mc
 
         return CharacterService.has_relationship(character, Relationship.FWB, target)
+
+    @staticmethod
+    def is_fwbs(characters: Iterable[ICharacter], target: Optional[ICharacter] = None):
+        if target is None:
+            target = mc
+
+        return all(
+            CharacterService.is_fwb(character, target) for character in characters
+        )
 
     @staticmethod
     def is_dating(character: ICharacter, target: Optional[ICharacter] = None) -> bool:
@@ -176,7 +211,7 @@ class CharacterService:
 
     @staticmethod
     def is_friends(
-        characters: list[ICharacter], target: Optional[ICharacter] = None
+        characters: Iterable[ICharacter], target: Optional[ICharacter] = None
     ) -> bool:
         if target is None:
             target = mc
@@ -191,6 +226,15 @@ class CharacterService:
             target = mc
 
         return CharacterService.has_relationship(character, Relationship.EX, target)
+
+    @staticmethod
+    def is_exs(characters: Iterable[ICharacter], target: Optional[ICharacter] = None):
+        if target is None:
+            target = mc
+
+        return all(
+            CharacterService.is_ex(character, target) for character in characters
+        )
 
     @staticmethod
     def is_mad(character: ICharacter) -> bool:
