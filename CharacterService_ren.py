@@ -135,6 +135,18 @@ class CharacterService:
         )
 
     @staticmethod
+    def is_girlfriends(
+        characters: list[ICharacter], target: Optional[ICharacter] = None
+    ) -> bool:
+        if target is None:
+            target = mc
+
+        return all(
+            CharacterService.is_girlfriend(character, target)
+            for character in characters
+        )
+
+    @staticmethod
     def is_fwb(character: ICharacter, target: Optional[ICharacter] = None) -> bool:
         if target is None:
             target = mc
@@ -161,6 +173,17 @@ class CharacterService:
             target = mc
 
         return CharacterService.has_relationship(character, Relationship.FRIEND, target)
+
+    @staticmethod
+    def is_friends(
+        characters: list[ICharacter], target: Optional[ICharacter] = None
+    ) -> bool:
+        if target is None:
+            target = mc
+
+        return all(
+            CharacterService.is_friend(character, target) for character in characters
+        )
 
     @staticmethod
     def is_ex(character: ICharacter, target: Optional[ICharacter] = None) -> bool:
