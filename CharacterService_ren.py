@@ -228,7 +228,7 @@ class CharacterService:
         return CharacterService.has_relationship(character, Relationship.EX, target)
 
     @staticmethod
-    def is_exs(characters: Iterable[ICharacter], target: Optional[ICharacter] = None):
+    def is_exes(characters: Iterable[ICharacter], target: Optional[ICharacter] = None):
         if target is None:
             target = mc
 
