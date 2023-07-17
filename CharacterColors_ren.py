@@ -49,5 +49,5 @@ class CharacterColor:
         return cls._get_color(MASCULINE_COLORS)
 
     @classmethod
-    def get_feminine_colour(cls) -> str:
+    def get_feminine_color(cls) -> str:
         return cls._get_color(FEMININE_COLORS)
