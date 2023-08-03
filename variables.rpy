@@ -2,7 +2,7 @@
 default aaron = NonPlayableCharacter(_("Aaron"), _("DoubleARon"))
 default adam = NonPlayableCharacter(_("Adam"), _("A.D.A.M."))
 default amber = NonPlayableCharacter(_("Amber"), _("Amber_xx"))
-default anon = NonPlayableCharacter("Anon", "concerned1")
+default anon = NonPlayableCharacter("Anon", "Anon00")
 default aryssa = NonPlayableCharacter(_("Aryssa"))
 default aubrey = NonPlayableCharacter(_("Aubrey"), _("Aubs123"))
 default autumn = NonPlayableCharacter(_("Autumn"), _("Its_Fall"))
