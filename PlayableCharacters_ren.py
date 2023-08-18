@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional, TYPE_CHECKING
+from game.Item_ren import Item
 from game.characters.ICharacter_ren import ICharacter
 
 import renpy.exports as renpy
@@ -26,7 +27,7 @@ class PlayableCharacter(ICharacter):
     profile_pictures: list[str] = field(default_factory=list)
     profile_picture: str = ""
     money: int = 0
-    inventory: list[str] = field(default_factory=list)
+    inventory: list["Item"] = field(default_factory=list)
     detective: Optional[Detective] = None
     relationships: dict[ICharacter, Relationship] = field(default_factory=dict)
     frat: Frat = Frat.WOLVES
