@@ -19,15 +19,18 @@ MASCULINE_COLORS: tuple[str, ...] = (
 )
 
 FEMININE_COLORS: tuple[str, ...] = (
-    "#05F0D5",
-    "#800080",
-    "#a3a3a3",
-    "#a815f2",
-    "#ecd9c9",
-    "#f197f3",
-    "#ff2aff",
-    "#ff8afb",
-    "#ff00ea",
+    "#05F0D5",  # Turquoise
+    "#800080",  # Purple
+    "#a3a3a3",  # Silver
+    "#a815f2",  # Bright Violet
+    "#ecd9c9",  # Blush Pink
+    "#f197f3",  # Pink
+    "#ff2aff",  # Neon Pink
+    "#ff8afb",  # Lavender Pink
+    "#ff00ea",  # Magenta
+    "#ffb6c1",  # Light Pink
+    "#f49ac2",  # Pastel Pink
+    "#e75480",  # Dark Pink
 )
 
 
