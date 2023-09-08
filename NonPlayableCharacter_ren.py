@@ -117,6 +117,7 @@ naomi: NonPlayableCharacter
 nora: NonPlayableCharacter
 parker: NonPlayableCharacter
 penelope: NonPlayableCharacter
+perry: NonPlayableCharacter
 polly: NonPlayableCharacter
 riley: NonPlayableCharacter
 ryan: NonPlayableCharacter
