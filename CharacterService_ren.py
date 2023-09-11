@@ -1,6 +1,6 @@
-from __future__ import annotations
-from typing import Iterable, Optional, TYPE_CHECKING
+from typing import Iterable, Optional, TYPE_CHECKING, Union
 from game.characters.ICharacter_ren import ICharacter
+from game.compat.py_compat_ren import CustomCharacter, MainCharacter
 
 from renpy import store
 import renpy.exports as renpy
@@ -18,9 +18,11 @@ init python:
 
 class CharacterService:
     @staticmethod
-    def get_user(character: object) -> ICharacter:
+    def get_user(
+        character: Union["ICharacter", "CustomCharacter", "MainCharacter"]
+    ) -> ICharacter:
         try:
-            if isinstance(character, PlayableCharacter):
+            if type(character) is PlayableCharacter:
                 user = mc
             else:
                 user = getattr(store, character.name.lower().replace(" ", "_"))
@@ -115,12 +117,12 @@ class CharacterService:
         directory: str = f"characters/images/{character_name.lower()}"
 
         try:
-            return [file for file in renpy.list_files() if file.startswith(directory)]
+            return [file for file in renpy.list_files() if file.startswith(directory)]  # type: ignore
         except OSError:
             return [
                 file
-                for file in renpy.list_files()
-                if file.startswith("characters/images/chloe")
+                for file in renpy.list_files()  # type: ignore
+                if file.startswith("characters/images/chloe")  # type: ignore
             ]
 
     @staticmethod
