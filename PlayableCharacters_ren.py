@@ -80,10 +80,13 @@ class PlayableCharacter(ICharacter):
 
         if "frat" not in state:
             state["frat"] = None
-        if joinwolves:
-            state["frat"] = Frat.WOLVES
-        else:
-            state["frat"] = Frat.APES
+        try:
+            if joinwolves:
+                state["frat"] = Frat.WOLVES
+            else:
+                state["frat"] = Frat.APES
+        except NameError:
+            pass
 
     def repair_relationships(self) -> None:
         local_relationships: dict[ICharacter, Relationship] = self.relationships.copy()
