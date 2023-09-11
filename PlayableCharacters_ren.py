@@ -3,6 +3,7 @@ from dataclasses import dataclass, field
 from typing import Optional, TYPE_CHECKING
 from game.Item_ren import Item
 from game.characters.ICharacter_ren import ICharacter
+from game.compat.py_compat_ren import Inventory
 
 import renpy.exports as renpy
 
@@ -14,6 +15,7 @@ if TYPE_CHECKING:
     from game.detective.Detective_ren import Detective
 
 name: str
+joinwolves: bool
 
 """renpy
 init python:
@@ -43,8 +45,7 @@ class PlayableCharacter(ICharacter):
         if not self.profile_pictures:
             self.profile_pictures = CharacterService.get_profile_pictures("mc")
 
-        if not self.profile_picture:
-            self.profile_picture = self.profile_pictures[0]
+        self.profile_picture = self.profile_pictures[0]
 
     def __hash__(self) -> int:
         return hash("mc")
@@ -57,6 +58,32 @@ class PlayableCharacter(ICharacter):
 
     def __eq__(self, __value: object) -> bool:
         return isinstance(__value, PlayableCharacter)
+
+    def __setstate__(self, state: dict[str, object]) -> None:
+        state["name"] = name
+        if not state["username"]:
+            state["username"] = name
+
+        state["profile_pictures"] = CharacterService.get_profile_pictures("mc")
+
+        if not isinstance(state["relationships"], dict):
+            state["relationships"] = {}
+
+        if "profile_picture" not in state or not state["profile_picture"]:
+            state["profile_picture"] = state["profile_pictures"][0]
+
+        if type(state["inventory"]) is Inventory:
+            try:
+                state["inventory"] = state["inventory"].items
+            except AttributeError:
+                state["inventory"] = []
+
+        if "frat" not in state:
+            state["frat"] = None
+        if joinwolves:
+            state["frat"] = Frat.WOLVES
+        else:
+            state["frat"] = Frat.APES
 
     def repair_relationships(self) -> None:
         local_relationships: dict[ICharacter, Relationship] = self.relationships.copy()
