@@ -88,6 +88,8 @@ class PlayableCharacter(ICharacter):
         except NameError:
             pass
 
+        self.__dict__ = state
+
     def repair_relationships(self) -> None:
         local_relationships: dict[ICharacter, Relationship] = self.relationships.copy()
         for npc, relationship in local_relationships.items():
