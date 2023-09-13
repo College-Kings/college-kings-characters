@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from game.compat.NonPlayableCharacter_Compat_ren import NonPlayableCharacter_Compat
 
 from renpy import store
 
@@ -67,8 +66,10 @@ class NonPlayableCharacter(ICharacter):
 
         return self.name == __value.name
 
-    def __setstate__(self, state: NonPlayableCharacter_Compat) -> None:
-        if "_relationship" in state:
+    def __setstate__(self, state: dict[str, object]) -> None:
+        if "_relationship" in state and isinstance(
+            state["_relationship"], Relationship
+        ):
             if state["name"] == "Amber":
                 if state["_relationship"] == Relationship.KISS:
                     CharacterService.set_relationship(self, Relationship.KISSED)
@@ -100,7 +101,7 @@ class NonPlayableCharacter(ICharacter):
                 CharacterService.set_mood(self, Moods.MAD)
                 CharacterService.set_relationship(self, Relationship.FRIEND)
             CharacterService.set_relationship(self, state["_relationship"])
-            del state["_relationship"]  # type: ignore
+            del state["_relationship"]
 
         if "pending_text_messages" not in state:
             state["pending_text_messages"] = []
@@ -114,14 +115,15 @@ class NonPlayableCharacter(ICharacter):
         if "simplr_messages" not in state:
             state["simplr_messages"] = []
 
-        state["profile_pictures"] = CharacterService.get_profile_pictures(
-            state["name"].lower()
-        )
+        if isinstance(state["name"], str):
+            state["profile_picture"] = CharacterService.get_profile_pictures(
+                state["name"].lower()
+            )
 
         if "relationships" not in state:
             state["relationships"] = {}
 
-        self.__dict__ = state  # type: ignore
+        self.__dict__ = state
 
 
 aaron: NonPlayableCharacter
