@@ -61,7 +61,7 @@ class PlayableCharacter(ICharacter):
 
     def __setstate__(self, state: dict[str, object]) -> None:
         state["name"] = name
-        if not state["username"]:
+        if not state.get("username", ""):
             state["username"] = name
 
         state["profile_pictures"] = CharacterService.get_profile_pictures("mc")
