@@ -9,12 +9,12 @@ MASCULINE_COLORS: tuple[str, ...] = (
     "#147efb",  # Sky Blue
     "#15b42a",  # Bright Green
     "#3fcf08",  # Lime Green
+    "#5fc9f8",  # Light Sky Blue
     "#8b0000",  # Dark Red
     "#a50615",  # Crimson Red
     "#db6f1c",  # Dark Orange/Brown
     "#fd9426",  # Bright Orange
     "#ffb210",  # Gold/Yellow
-    "#5fc9f8",  # Light Sky Blue
 )
 
 FEMININE_COLORS: tuple[str, ...] = (
