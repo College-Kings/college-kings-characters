@@ -4,33 +4,33 @@ init python:
 
 
 MASCULINE_COLORS: tuple[str, ...] = (
-    "#0055ff",
-    "#046307",
-    "#147efb",
-    "#15b42a",
-    "#3fcf08",
-    "#8b0000",
-    "#a50615",
-    "#db6f1c",
-    "#fd9426",
-    "#ffb210",
-    "#ff1694",
-    "#5fc9f8",
+    "#0055ff",  # Bright Blue
+    "#046307",  # Dark Green
+    "#147efb",  # Sky Blue
+    "#15b42a",  # Bright Green
+    "#3fcf08",  # Lime Green
+    "#8b0000",  # Dark Red
+    "#a50615",  # Crimson Red
+    "#db6f1c",  # Dark Orange/Brown
+    "#fd9426",  # Bright Orange
+    "#ffb210",  # Gold/Yellow
+    "#5fc9f8",  # Light Sky Blue
 )
 
 FEMININE_COLORS: tuple[str, ...] = (
-    "#05F0D5",  # Turquoise
-    "#800080",  # Purple
-    "#a3a3a3",  # Silver
-    "#a815f2",  # Bright Violet
-    "#ecd9c9",  # Blush Pink
-    "#f197f3",  # Pink
-    "#ff2aff",  # Neon Pink
-    "#ff8afb",  # Lavender Pink
-    "#ff00ea",  # Magenta
-    "#ffb6c1",  # Light Pink
-    "#f49ac2",  # Pastel Pink
     "#e75480",  # Dark Pink
+    "#ff1694",  # Bright Pink
+    "#ff2aff",  # Neon Pink
+    "#ff00ea",  # Magenta
+    "#a815f2",  # Bright Violet
+    "#800080",  # Purple
+    "#ff8afb",  # Lavender Pink
+    "#f197f3",  # Pink
+    "#f49ac2",  # Pastel Pink
+    "#ffb6c1",  # Light Pink
+    "#ecd9c9",  # Blush Pink
+    "#05F0D5",  # Turquoise
+    "#a3a3a3",  # Silver
 )
 
 
@@ -38,7 +38,7 @@ class CharacterColor:
     index = 0
 
     @classmethod
-    def _get_color(cls, colors: tuple[str]) -> str:
+    def _get_color(cls, colors: tuple[str, ...]) -> str:
         color: str = colors[cls.index % len(colors)]
         cls.index += 1
         return color
