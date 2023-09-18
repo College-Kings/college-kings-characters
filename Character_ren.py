@@ -18,9 +18,9 @@ class Character(ADVCharacter):
             gender: object = properties.pop("gender")
 
             if gender == Gender.MALE:
-                who_color: str = CharacterColor.get_feminine_color()
+                who_color: str = CharacterColor.get_masculine_color()
             elif gender == Gender.FEMALE:
-                who_color = CharacterColor.get_masculine_color()
+                who_color = CharacterColor.get_feminine_color()
             elif gender == Gender.ANY:
                 who_color = CharacterColor.get_any_color()
             else:
