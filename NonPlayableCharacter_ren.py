@@ -146,6 +146,7 @@ elijah: NonPlayableCharacter
 emily: NonPlayableCharacter
 emmy: NonPlayableCharacter
 evelyn: NonPlayableCharacter
+faris: NonPlayableCharacter
 grayson: NonPlayableCharacter
 imre: NonPlayableCharacter
 iris: NonPlayableCharacter
