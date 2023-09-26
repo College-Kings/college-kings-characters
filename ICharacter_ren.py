@@ -11,13 +11,13 @@ init python:
 
 class ICharacter:
     name: str
-    username: str
+    _username: str
 
     relationships: dict[ICharacter, Relationship]
     mood: Moods
 
     _profile_pictures: list[str]
-    profile_picture: str
+    _profile_picture: str
 
     points: int
     has_had_sex_with_mc: bool
@@ -33,10 +33,27 @@ class ICharacter:
     simplr_messages: list[Message]
 
     @property
+    def username(self) -> str:
+        if not self._username:
+            return self.name
+        return self._username
+
+    @username.setter
+    def username(self, value: str) -> None:
+        self._username = value
+
+    @property
     def profile_pictures(self) -> list[str]:
-        return self._profile_pictures
+        ...
 
     @profile_pictures.setter
     def profile_pictures(self, value: list[str]):
         self._profile_pictures = value
-        self.profile_picture = value[0]
+
+    @property
+    def profile_picture(self) -> str:
+        return self._profile_picture
+
+    @profile_picture.setter
+    def profile_picture(self, value: str) -> None:
+        self._profile_picture = value

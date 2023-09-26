@@ -1,20 +1,16 @@
-from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import Optional, TYPE_CHECKING
-from game.Item_ren import Item
-from game.characters.ICharacter_ren import ICharacter
-from game.compat.py_compat_ren import Inventory
+from typing import Optional
 
+from renpy import store
 import renpy.exports as renpy
 
+from game.Item_ren import Item
+from game.characters.ICharacter_ren import ICharacter
 from game.characters.Frat_ren import Frat
 from game.characters.CharacterService_ren import CharacterService
 from game.characters.Relationship_ren import Relationship
+from game.detective.Detective_ren import Detective
 
-if TYPE_CHECKING:
-    from game.detective.Detective_ren import Detective
-
-name: str
 joinwolves: bool
 
 """renpy
@@ -24,23 +20,32 @@ init python:
 
 @dataclass
 class PlayableCharacter(ICharacter):
-    name: str = ""
-    username: str = ""
+    _username: str = ""
     _profile_pictures: list[str] = field(default_factory=list)
-    profile_picture: str = ""
+    _profile_picture: str = ""
     money: int = 0
     inventory: list["Item"] = field(default_factory=list)
-    detective: Optional[Detective] = None
-    relationships: dict[ICharacter, Relationship] = field(default_factory=dict)
+    detective: Optional["Detective"] = None
+    relationships: dict["ICharacter", "Relationship"] = field(default_factory=dict)
     frat: Frat = Frat.WOLVES
     daddy_name: str = "Daddy"
 
-    def __post_init__(self) -> None:
-        if not self.name:
-            self.name = name
+    @property
+    def name(self) -> str:  # type: ignore
+        return store.name
 
-        if not self.username:
-            self.username = self.name
+    @property
+    def username(self) -> str:
+        try:
+            if not self._username:
+                return self.name
+            return self._username
+        except AttributeError:
+            return self.name
+
+    @username.setter
+    def username(self, value: str) -> None:
+        self._username = value
 
     @property
     def profile_pictures(self) -> list[str]:
@@ -49,6 +54,26 @@ class PlayableCharacter(ICharacter):
     @profile_pictures.setter
     def profile_pictures(self, value: list[str]) -> None:
         self._profile_pictures = CharacterService.get_profile_pictures("mc")
+
+    @property
+    def profile_picture(self) -> str:
+        try:
+            return self._profile_picture
+        except AttributeError:
+            self.profile_picture = self.profile_pictures[0]
+            return self._profile_picture
+
+    @profile_picture.setter
+    def profile_picture(self, value: str) -> None:
+        self._profile_picture = value
+
+    @property
+    def is_wolf(self) -> bool:
+        return self.frat == Frat.WOLVES
+
+    @property
+    def is_ape(self) -> bool:
+        return self.frat == Frat.APES
 
     def __hash__(self) -> int:
         return hash("mc")
@@ -63,35 +88,7 @@ class PlayableCharacter(ICharacter):
         return isinstance(__value, PlayableCharacter)
 
     def __setstate__(self, state: dict[str, object]) -> None:
-        state["name"] = name
-        if not state.get("username", ""):
-            state["username"] = name
-
-        state["profile_pictures"] = CharacterService.get_profile_pictures("mc")
-
-        if not isinstance(state["relationships"], dict):
-            state["relationships"] = {}
-
-        if "profile_picture" not in state or not state["profile_picture"]:
-            state["profile_picture"] = state["profile_pictures"][0]
-
-        if type(state["inventory"]) is Inventory:
-            try:
-                state["inventory"] = state["inventory"].items
-            except AttributeError:
-                state["inventory"] = []
-
-        if "frat" not in state:
-            state["frat"] = None
-        try:
-            if joinwolves:
-                state["frat"] = Frat.WOLVES
-            else:
-                state["frat"] = Frat.APES
-        except NameError:
-            pass
-
-        self.__dict__ = state
+        self.__dict__.update(state)
 
     def repair_relationships(self) -> None:
         local_relationships: dict[ICharacter, Relationship] = self.relationships.copy()

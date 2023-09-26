@@ -16,7 +16,7 @@ init python:
 @dataclass
 class NonPlayableCharacter(ICharacter):
     name: str = ""
-    username: str = ""
+    _username: str = ""
 
     relationships: dict[ICharacter, Relationship] = field(default_factory=dict)
     mood: Moods = Moods.NORMAL
@@ -35,9 +35,18 @@ class NonPlayableCharacter(ICharacter):
     pending_simplr_messages: list[Message] = field(default_factory=list)
     simplr_messages: list[Message] = field(default_factory=list)
 
-    def __post_init__(self) -> None:
-        if not self.username:
-            self.username = self.name
+    @property
+    def username(self) -> str:
+        try:
+            if not self._username:
+                return self.name
+            return self._username
+        except AttributeError:
+            return self.name
+
+    @username.setter
+    def username(self, value: str) -> None:
+        self._username = value
 
     @property
     def profile_pictures(self) -> list[str]:
@@ -50,11 +59,15 @@ class NonPlayableCharacter(ICharacter):
         )
 
     @property
-    def profile_picture(self) -> str:  # type: ignore
+    def profile_picture(self) -> str:
         try:
             return self.profile_pictures[0]
         except (AttributeError, IndexError):
             raise AttributeError(f"{self.name} has no profile pictures.")
+
+    @profile_picture.setter
+    def profile_picture(self, value: str) -> None:
+        pass
 
     def __hash__(self) -> int:
         return hash(self.name)
