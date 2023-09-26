@@ -45,7 +45,9 @@ class NonPlayableCharacter(ICharacter):
 
     @profile_pictures.setter
     def profile_pictures(self, value: list[str]) -> None:
-        return
+        self._profile_pictures = CharacterService.get_profile_pictures(
+            self.name.lower()
+        )
 
     @property
     def profile_picture(self) -> str:  # type: ignore
@@ -117,11 +119,6 @@ class NonPlayableCharacter(ICharacter):
 
         if "simplr_messages" not in state:
             state["simplr_messages"] = []
-
-        if isinstance(state["name"], str):
-            state["profile_picture"] = CharacterService.get_profile_pictures(
-                state["name"].lower()
-            )
 
         if "relationships" not in state:
             state["relationships"] = {}
