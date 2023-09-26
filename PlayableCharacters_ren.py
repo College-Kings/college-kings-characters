@@ -58,6 +58,8 @@ class PlayableCharacter(ICharacter):
     @property
     def profile_picture(self) -> str:
         try:
+            if not self._profile_picture:
+                self.profile_picture = self.profile_pictures[0]
             return self._profile_picture
         except AttributeError:
             self.profile_picture = self.profile_pictures[0]
