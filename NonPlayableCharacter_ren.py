@@ -84,60 +84,6 @@ class NonPlayableCharacter(ICharacter):
 
         return self.name == __value.name
 
-    def __setstate__(self, state: dict[str, object]) -> None:
-        if "_relationship" in state and isinstance(
-            state["_relationship"], Relationship
-        ):
-            if state["name"] == "Amber":
-                if state["_relationship"] == Relationship.KISS:
-                    CharacterService.set_relationship(self, Relationship.KISSED)
-
-                if state["_relationship"] == Relationship.FWB:
-                    CharacterService.set_relationship(self, Relationship.FWB)
-
-                if state["_relationship"] == Relationship.FWB:
-                    CharacterService.set_relationship(self, Relationship.FWB)
-
-            if state["name"] == "Aryssa":
-                if state["_relationship"] == Relationship.LIKES:
-                    CharacterService.set_relationship(self, Relationship.FRIEND)
-
-            if (
-                state["name"] == "Elijah"
-                and state["_relationship"] == Relationship.MAKEFUN
-            ):
-                CharacterService.set_mood(self, Moods.HURT)
-
-            if state["name"] == "Evelyn":
-                if state["_relationship"] == Relationship.MOVE:
-                    store.v2_made_a_move_on_evelyn = True
-
-                if state["_relationship"] == Relationship.LIKES:
-                    store.v6_evelyn_successful_date = True
-
-            if state["_relationship"] == Relationship.MAD:
-                CharacterService.set_mood(self, Moods.MAD)
-                CharacterService.set_relationship(self, Relationship.FRIEND)
-            CharacterService.set_relationship(self, state["_relationship"])
-            del state["_relationship"]
-
-        if "pending_text_messages" not in state:
-            state["pending_text_messages"] = []
-
-        if "text_messages" not in state:
-            state["text_messages"] = []
-
-        if "pending_simplr_messages" not in state:
-            state["pending_simplr_messages"] = []
-
-        if "simplr_messages" not in state:
-            state["simplr_messages"] = []
-
-        if "relationships" not in state:
-            state["relationships"] = {}
-
-        self.__dict__ = state
-
 
 aaron: NonPlayableCharacter
 adam: NonPlayableCharacter
