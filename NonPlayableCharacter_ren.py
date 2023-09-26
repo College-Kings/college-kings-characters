@@ -21,7 +21,7 @@ class NonPlayableCharacter(ICharacter):
     relationships: dict[ICharacter, Relationship] = field(default_factory=dict)
     mood: Moods = Moods.NORMAL
 
-    profile_pictures: list[str] = field(default_factory=list)
+    _profile_pictures: list[str] = field(default_factory=list)
     points: int = 0
     has_had_sex_with_mc: bool = False
 
@@ -39,10 +39,13 @@ class NonPlayableCharacter(ICharacter):
         if not self.username:
             self.username = self.name
 
-        if not self.profile_pictures:
-            self.profile_pictures = CharacterService.get_profile_pictures(
-                self.name.lower()
-            )
+    @property
+    def profile_pictures(self) -> list[str]:
+        return CharacterService.get_profile_pictures(self.name.lower())
+
+    @profile_pictures.setter
+    def profile_pictures(self, value: list[str]) -> None:
+        return
 
     @property
     def profile_picture(self) -> str:  # type: ignore

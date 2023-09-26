@@ -16,7 +16,7 @@ class ICharacter:
     relationships: dict[ICharacter, Relationship]
     mood: Moods
 
-    profile_pictures: list[str]
+    _profile_pictures: list[str]
     profile_picture: str
 
     points: int
@@ -31,3 +31,12 @@ class ICharacter:
 
     pending_simplr_messages: list[Message]
     simplr_messages: list[Message]
+
+    @property
+    def profile_pictures(self) -> list[str]:
+        return self._profile_pictures
+
+    @profile_pictures.setter
+    def profile_pictures(self, value: list[str]):
+        self._profile_pictures = value
+        self.profile_picture = value[0]
