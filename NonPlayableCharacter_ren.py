@@ -1,7 +1,5 @@
 from dataclasses import dataclass, field
 
-from renpy import store
-
 from game.characters.CharacterService_ren import CharacterService
 from game.characters.ICharacter_ren import ICharacter
 from game.characters.Moods_ren import Moods
@@ -29,11 +27,11 @@ class NonPlayableCharacter(ICharacter):
     vindictive_characters: tuple["NonPlayableCharacter", ...] = ()
     is_talkative: bool = False
 
-    pending_text_messages: list[Message] = field(default_factory=list)
-    text_messages: list[Message] = field(default_factory=list)
+    _pending_text_messages: list[Message] = field(default_factory=list)
+    _text_messages: list[Message] = field(default_factory=list)
 
-    pending_simplr_messages: list[Message] = field(default_factory=list)
-    simplr_messages: list[Message] = field(default_factory=list)
+    _pending_simplr_messages: list[Message] = field(default_factory=list)
+    _simplr_messages: list[Message] = field(default_factory=list)
 
     @property
     def username(self) -> str:
@@ -57,6 +55,58 @@ class NonPlayableCharacter(ICharacter):
         self._profile_pictures = CharacterService.get_profile_pictures(
             self.name.lower()
         )
+
+    @property
+    def pending_text_messages(self) -> list[Message]:
+        try:
+            self._pending_text_messages
+        except AttributeError:
+            self._pending_text_messages = []
+
+        return self._pending_text_messages
+
+    @pending_text_messages.setter
+    def pending_text_messages(self, value: list[Message]) -> None:
+        self._pending_text_messages = value
+
+    @property
+    def text_messages(self) -> list[Message]:
+        try:
+            self._text_messages
+        except AttributeError:
+            self._text_messages = []
+
+        return self._text_messages
+
+    @text_messages.setter
+    def text_messages(self, value: list[Message]) -> None:
+        self._text_messages = value
+
+    @property
+    def pending_simplr_messages(self) -> list[Message]:
+        try:
+            self._pending_simplr_messages
+        except AttributeError:
+            self._pending_simplr_messages = []
+
+        return self._pending_simplr_messages
+
+    @pending_simplr_messages.setter
+    def pending_simplr_messages(self, value: list[Message]) -> None:
+        self._pending_simplr_messages = value
+
+    @property
+    def simplr_messages(self) -> list[Message]:
+        try:
+            self._simplr_messages
+        except AttributeError:
+            self._simplr_messages = []
+
+        return self._simplr_messages
+
+    @simplr_messages.setter
+    def simplr_messages(self, value: list[Message]) -> None:
+        self._simplr_messages = value
 
     @property
     def profile_picture(self) -> str:
