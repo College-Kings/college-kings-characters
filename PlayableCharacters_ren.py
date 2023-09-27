@@ -60,10 +60,13 @@ class PlayableCharacter(ICharacter):
         try:
             if not self._profile_picture:
                 self.profile_picture = self.profile_pictures[0]
-            return self._profile_picture
         except AttributeError:
             self.profile_picture = self.profile_pictures[0]
-            return self._profile_picture
+
+        if not renpy.loadable(self._profile_picture):  # type: ignore
+            self.profile_picture = self.profile_pictures[0]
+
+        return self._profile_picture
 
     @profile_picture.setter
     def profile_picture(self, value: str) -> None:
