@@ -30,7 +30,6 @@ FEMININE_COLORS: tuple[str, ...] = (
     "#ffb6c1",  # Light Pink
     "#ecd9c9",  # Blush Pink
     "#05F0D5",  # Turquoise
-    "#a3a3a3",  # Silver
 )
 
 
