@@ -4,6 +4,7 @@ from typing import Optional
 from renpy import store
 import renpy.exports as renpy
 
+from game.compat.py_compat_ren import Inventory
 from game.Item_ren import Item
 from game.characters.ICharacter_ren import ICharacter
 from game.characters.Frat_ren import Frat
@@ -24,7 +25,7 @@ class PlayableCharacter(ICharacter):
     _profile_pictures: list[str] = field(default_factory=list)
     _profile_picture: str = ""
     money: int = 0
-    inventory: list["Item"] = field(default_factory=list)
+    _inventory: list["Item"] = field(default_factory=list)
     detective: Optional["Detective"] = None
     relationships: dict["ICharacter", "Relationship"] = field(default_factory=dict)
     frat: Frat = Frat.WOLVES
@@ -71,6 +72,22 @@ class PlayableCharacter(ICharacter):
     @profile_picture.setter
     def profile_picture(self, value: str) -> None:
         self._profile_picture = value
+
+    @property
+    def inventory(self) -> list["Item"]:
+        try:
+            self._inventory
+        except AttributeError:
+            old_inventory = self.__dict__.get("inventory", [])
+            if isinstance(old_inventory, Inventory):
+                old_inventory = old_inventory.items
+            self._inventory = [item for item in old_inventory]
+
+        return self._inventory
+
+    @inventory.setter
+    def inventory(self, value: list["Item"]) -> None:
+        self._inventory = value
 
     @property
     def girlfriends(self) -> list[ICharacter]:
