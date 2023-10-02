@@ -22,7 +22,7 @@ class CharacterService:
         character: Union["ICharacter", "CustomCharacter", "MainCharacter"]
     ) -> ICharacter:
         try:
-            if type(character) is PlayableCharacter:
+            if isinstance(character, PlayableCharacter):
                 user = mc
             else:
                 user = getattr(store, character.name.lower().replace(" ", "_"))
