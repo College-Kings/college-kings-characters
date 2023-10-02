@@ -69,6 +69,9 @@ class CharacterService:
         if not hasattr(target, "relationships"):
             target.relationships = {}
 
+        if isinstance(target.relationships, set):
+            target.relationships = {r: Relationship.FWB for r in target.relationships}
+
         if (
             character.relationships.setdefault(target, Relationship.FRIEND)
             == relationship
