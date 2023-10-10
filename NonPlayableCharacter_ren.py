@@ -24,7 +24,7 @@ class NonPlayableCharacter(ICharacter):
     has_had_sex_with_mc: bool = False
 
     is_competitive: bool = False
-    vindictive_characters: tuple["NonPlayableCharacter", ...] = ()
+    vindictive_characters: tuple["ICharacter", ...] = ()
     is_talkative: bool = False
 
     _pending_text_messages: list[Message] = field(default_factory=list)
