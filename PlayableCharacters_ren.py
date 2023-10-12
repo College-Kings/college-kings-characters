@@ -97,11 +97,9 @@ class PlayableCharacter(ICharacter):
             npc for npc in self.relationships if CharacterService.is_girlfriend(npc)
         ]
 
-    @property
     def is_wolf(self) -> bool:
         return self.frat == Frat.WOLVES
 
-    @property
     def is_ape(self) -> bool:
         return self.frat == Frat.APES
 
