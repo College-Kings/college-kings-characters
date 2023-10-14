@@ -1,6 +1,6 @@
-from __future__ import annotations
-from game.characters.Moods_ren import Moods
+from typing import Optional
 
+from game.characters.Moods_ren import Moods
 from game.characters.Relationship_ren import Relationship
 from game.phone.Message_ren import Message
 
@@ -11,9 +11,9 @@ init python:
 
 class ICharacter:
     name: str
-    _username: str
+    _username: Optional[str]
 
-    relationships: dict[ICharacter, Relationship]
+    relationships: dict["ICharacter", Relationship]
     mood: Moods
 
     _profile_pictures: list[str]
@@ -23,7 +23,7 @@ class ICharacter:
     has_had_sex_with_mc: bool
 
     is_competitive: bool
-    vindictive_characters: tuple[ICharacter, ...]
+    vindictive_characters: tuple["ICharacter", ...]
     is_talkative: bool
 
     _pending_text_messages: list[Message]

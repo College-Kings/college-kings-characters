@@ -21,7 +21,7 @@ init python:
 
 @dataclass
 class PlayableCharacter(ICharacter):
-    _username: str = ""
+    _username: Optional[str] = None
     _profile_pictures: list[str] = field(default_factory=list)
     _profile_picture: str = ""
     money: int = 0
@@ -38,7 +38,7 @@ class PlayableCharacter(ICharacter):
     @property
     def username(self) -> str:
         try:
-            if not self._username:
+            if self._username is None:
                 return self.name
             return self._username
         except AttributeError:
