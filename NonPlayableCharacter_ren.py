@@ -1,5 +1,7 @@
 from dataclasses import dataclass, field
 
+from renpy import config
+
 from game.characters.CharacterService_ren import CharacterService
 from game.characters.ICharacter_ren import ICharacter
 from game.characters.Moods_ren import Moods
@@ -113,7 +115,9 @@ class NonPlayableCharacter(ICharacter):
         try:
             return self.profile_pictures[0]
         except (AttributeError, IndexError):
-            raise AttributeError(f"{self.name} has no profile pictures.")
+            if config.developer:
+                raise AttributeError(f"{self.name} has no profile pictures.")
+            return chloe.profile_picture
 
     @profile_picture.setter
     def profile_picture(self, value: str) -> None:
