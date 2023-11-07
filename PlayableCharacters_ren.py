@@ -119,6 +119,3 @@ class PlayableCharacter(ICharacter):
         local_relationships: dict[ICharacter, Relationship] = self.relationships.copy()
         for npc, relationship in local_relationships.items():
             self.relationships[CharacterService.get_user(npc)] = relationship
-
-
-mc: PlayableCharacter
