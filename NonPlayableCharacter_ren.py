@@ -8,6 +8,8 @@ from game.characters.Moods_ren import Moods
 from game.characters.Relationship_ren import Relationship
 from game.phone.Message_ren import Message
 
+chloe: "NonPlayableCharacter"
+
 """renpy
 init python:
 """
@@ -138,57 +140,12 @@ class NonPlayableCharacter(ICharacter):
 
         return self.name == __value.name
 
+    def is_girlfriend(self, character: ICharacter) -> bool:
+        return character.relationships[self] == Relationship.GIRLFRIEND
 
-aaron: NonPlayableCharacter
-adam: NonPlayableCharacter
-amber: NonPlayableCharacter
-anon: NonPlayableCharacter
-aryssa: NonPlayableCharacter
-aubrey: NonPlayableCharacter
-autumn: NonPlayableCharacter
-beth: NonPlayableCharacter
-buyer: NonPlayableCharacter
-caleb: NonPlayableCharacter
-cameron: NonPlayableCharacter
-candy: NonPlayableCharacter
-charli: NonPlayableCharacter
-chloe: NonPlayableCharacter
-chris: NonPlayableCharacter
-dean: NonPlayableCharacter
-elijah: NonPlayableCharacter
-emily: NonPlayableCharacter
-emmy: NonPlayableCharacter
-evelyn: NonPlayableCharacter
-faris: NonPlayableCharacter
-grayson: NonPlayableCharacter
-imre: NonPlayableCharacter
-iris: NonPlayableCharacter
-jenny: NonPlayableCharacter
-josh: NonPlayableCharacter
-julia: NonPlayableCharacter
-kai: NonPlayableCharacter
-kim: NonPlayableCharacter
-kourtney: NonPlayableCharacter
-lauren: NonPlayableCharacter
-lews_official: NonPlayableCharacter
-lindsey: NonPlayableCharacter
-mason: NonPlayableCharacter
-mr_lee: NonPlayableCharacter
-ms_rose: NonPlayableCharacter
-naomi: NonPlayableCharacter
-nora: NonPlayableCharacter
-parker: NonPlayableCharacter
-penelope: NonPlayableCharacter
-perry: NonPlayableCharacter
-polly: NonPlayableCharacter
-riley: NonPlayableCharacter
-ryan: NonPlayableCharacter
-samantha: NonPlayableCharacter
-satin: NonPlayableCharacter
-sebastian: NonPlayableCharacter
-tom: NonPlayableCharacter
-trainer: NonPlayableCharacter
-wolf: NonPlayableCharacter
+    def is_fwb(self, character: ICharacter) -> bool:
+        return character.relationships[self] == Relationship.FWB
+
 
 # # region Relationships
 # # region Old CK1
