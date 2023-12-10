@@ -1,4 +1,3 @@
-from __future__ import annotations
 from enum import Enum
 
 """renpy
@@ -28,5 +27,5 @@ class Relationship(Enum):
     GIRLFRIEND = 10
 
     @classmethod
-    def _missing_(cls, value: object) -> Relationship:
+    def _missing_(cls, value: object) -> "Relationship":
         return cls.FRIEND
