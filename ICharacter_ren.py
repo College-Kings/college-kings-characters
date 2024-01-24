@@ -1,5 +1,3 @@
-from typing import Optional
-
 from game.characters.Moods_ren import Moods
 from game.characters.Relationship_ren import Relationship
 from game.phone.Message_ren import Message
@@ -11,7 +9,7 @@ init python:
 
 class ICharacter:
     name: str
-    _username: Optional[str]
+    _username: str
 
     relationships: dict["ICharacter", Relationship]
     mood: Moods
