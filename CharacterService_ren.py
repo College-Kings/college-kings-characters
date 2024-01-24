@@ -1,4 +1,4 @@
-from typing import Iterable, Optional, TYPE_CHECKING, Union
+from typing import Iterable, Optional, Union
 from game.characters.ICharacter_ren import ICharacter
 from game.compat.py_compat_ren import CustomCharacter, MainCharacter
 
@@ -7,10 +7,9 @@ import renpy.exports as renpy
 
 from game.characters.Relationship_ren import Relationship
 from game.characters.Moods_ren import Moods
+from game.characters.PlayableCharacters_ren import PlayableCharacter
 
-if TYPE_CHECKING:
-    from game.characters.PlayableCharacters_ren import PlayableCharacter, mc
-
+mc: PlayableCharacter
 """renpy
 init python:
 """
