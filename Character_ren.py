@@ -10,7 +10,9 @@ init python:
 
 
 class Character(ADVCharacter):
-    def __init__(self, name: Optional[str], kind: None = None, **properties: object):
+    def __init__(
+        self, name: Optional[str], kind: None = None, **properties: object
+    ) -> None:
         properties.setdefault("who_outlines", [(2, "#000")])
         properties.setdefault("what_outlines", [(2, "#000")])
 
