@@ -1,17 +1,17 @@
 from dataclasses import dataclass, field
 from typing import Optional
 
-from renpy import store
 import renpy.exports as renpy
 
 from game.compat.py_compat_ren import Inventory
-from game.Item_ren import Item
+from game.items.Item_ren import Item
 from game.characters.ICharacter_ren import ICharacter
 from game.characters.Frat_ren import Frat
 from game.characters.CharacterService_ren import CharacterService
 from game.characters.Relationship_ren import Relationship
 from game.detective.Detective_ren import Detective
 
+name: str
 joinwolves: bool
 
 """renpy
@@ -21,7 +21,7 @@ init python:
 
 @dataclass
 class PlayableCharacter(ICharacter):
-    _username: Optional[str] = None
+    _username: str = ""
     _profile_pictures: list[str] = field(default_factory=list)
     _profile_picture: str = ""
     money: int = 0
@@ -32,13 +32,13 @@ class PlayableCharacter(ICharacter):
     daddy_name: str = "Daddy"
 
     @property
-    def name(self) -> str:  # type: ignore
-        return store.name
+    def name(self) -> str:
+        return name
 
     @property
     def username(self) -> str:
         try:
-            if self._username is None:
+            if not self._username:
                 return self.name
             return self._username
         except AttributeError:
@@ -107,7 +107,7 @@ class PlayableCharacter(ICharacter):
         return hash("mc")
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}({self.name})"
+        return f"{self.__class__.__name__}({self.name!r})"
 
     def __str__(self) -> str:
         return self.name
