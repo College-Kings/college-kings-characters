@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from typing import Protocol, runtime_checkable
-from game.characters.CharacterProtocol_ren import CharacterProtocol
+from game.characters.character_ren import Character
 from game.characters.Relationship_ren import Relationship
 from game.characters.character_traits_ren import CharacterTrait
 
@@ -17,8 +17,8 @@ init python:
 
 
 @runtime_checkable
-class NonPlayableCharacter(CharacterProtocol, Protocol):
-    relationships: dict[CharacterProtocol, Relationship]
+class NonPlayableCharacter(Character, Protocol):
+    relationships: dict[Character, Relationship]
 
     pending_text_messages: list[Message]
     text_messages: list[Message]
@@ -58,10 +58,10 @@ class NonPlayableCharacter(CharacterProtocol, Protocol):
     def is_talkative(self) -> bool:
         return CharacterTrait.TALKATIVE in self.traits
 
-    def is_girlfriend(self, character: "CharacterProtocol") -> bool:
+    def is_girlfriend(self, character: "Character") -> bool:
         return self.relationships[character] == Relationship.GIRLFRIEND
 
-    def is_fwb(self, character: "CharacterProtocol") -> bool:
+    def is_fwb(self, character: "Character") -> bool:
         return self.relationships[character] == Relationship.FWB
 
 

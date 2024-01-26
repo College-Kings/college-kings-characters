@@ -1,5 +1,5 @@
 from typing import Iterable, Optional
-from game.characters.CharacterProtocol_ren import CharacterProtocol
+from game.characters.character_ren import Character
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 
 from renpy import store
@@ -17,7 +17,7 @@ init python:
 
 class CharacterService:
     @staticmethod
-    def get_user(character: CharacterProtocol) -> CharacterProtocol:
+    def get_user(character: Character) -> Character:
         try:
             if isinstance(character, PlayableCharacter):
                 return mc
@@ -28,7 +28,7 @@ class CharacterService:
 
     @staticmethod
     def get_relationship(
-        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
+        character: Character, target: Optional[Character] = None
     ) -> Relationship:
         if target is None:
             target = mc
@@ -40,9 +40,9 @@ class CharacterService:
 
     @staticmethod
     def has_relationship(
-        character: CharacterProtocol,
+        character: Character,
         relationship: Relationship,
-        target: Optional[CharacterProtocol] = None,
+        target: Optional[Character] = None,
     ) -> bool:
         if target is None:
             target = mc
@@ -51,9 +51,9 @@ class CharacterService:
 
     @staticmethod
     def set_relationship(
-        character: CharacterProtocol,
+        character: Character,
         relationship: Relationship,
-        target: Optional[CharacterProtocol] = None,
+        target: Optional[Character] = None,
     ) -> None:
         if target is None:
             target = mc
@@ -127,7 +127,7 @@ class CharacterService:
 
     @staticmethod
     def is_exclusive_girlfriend(
-        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
+        character: Character, target: Optional[Character] = None
     ) -> bool:
         if target is None:
             target = mc
@@ -139,9 +139,7 @@ class CharacterService:
         )
 
     @staticmethod
-    def is_girlfriend(
-        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
-    ) -> bool:
+    def is_girlfriend(character: Character, target: Optional[Character] = None) -> bool:
         if target is None:
             target = mc
 
@@ -151,8 +149,8 @@ class CharacterService:
 
     @staticmethod
     def is_girlfriends(
-        characters: Iterable[CharacterProtocol],
-        target: Optional[CharacterProtocol] = None,
+        characters: Iterable[Character],
+        target: Optional[Character] = None,
     ) -> bool:
         if target is None:
             target = mc
@@ -163,9 +161,7 @@ class CharacterService:
         )
 
     @staticmethod
-    def is_exclusive(
-        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
-    ) -> bool:
+    def is_exclusive(character: Character, target: Optional[Character] = None) -> bool:
         if target is None:
             target = mc
 
@@ -176,9 +172,7 @@ class CharacterService:
         )
 
     @staticmethod
-    def is_fwb(
-        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
-    ) -> bool:
+    def is_fwb(character: Character, target: Optional[Character] = None) -> bool:
         if target is None:
             target = mc
 
@@ -186,8 +180,8 @@ class CharacterService:
 
     @staticmethod
     def is_fwbs(
-        characters: Iterable[CharacterProtocol],
-        target: Optional[CharacterProtocol] = None,
+        characters: Iterable[Character],
+        target: Optional[Character] = None,
     ) -> bool:
         if target is None:
             target = mc
@@ -197,27 +191,21 @@ class CharacterService:
         )
 
     @staticmethod
-    def is_dating(
-        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
-    ) -> bool:
+    def is_dating(character: Character, target: Optional[Character] = None) -> bool:
         if target is None:
             target = mc
 
         return CharacterService.has_relationship(character, Relationship.DATING, target)
 
     @staticmethod
-    def is_kissed(
-        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
-    ) -> bool:
+    def is_kissed(character: Character, target: Optional[Character] = None) -> bool:
         if target is None:
             target = mc
 
         return CharacterService.has_relationship(character, Relationship.KISSED, target)
 
     @staticmethod
-    def is_friend(
-        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
-    ) -> bool:
+    def is_friend(character: Character, target: Optional[Character] = None) -> bool:
         if target is None:
             target = mc
 
@@ -225,8 +213,8 @@ class CharacterService:
 
     @staticmethod
     def is_friends(
-        characters: Iterable[CharacterProtocol],
-        target: Optional[CharacterProtocol] = None,
+        characters: Iterable[Character],
+        target: Optional[Character] = None,
     ) -> bool:
         if target is None:
             target = mc
@@ -236,9 +224,7 @@ class CharacterService:
         )
 
     @staticmethod
-    def is_ex(
-        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
-    ) -> bool:
+    def is_ex(character: Character, target: Optional[Character] = None) -> bool:
         if target is None:
             target = mc
 
@@ -246,8 +232,8 @@ class CharacterService:
 
     @staticmethod
     def is_exes(
-        characters: Iterable[CharacterProtocol],
-        target: Optional[CharacterProtocol] = None,
+        characters: Iterable[Character],
+        target: Optional[Character] = None,
     ):
         if target is None:
             target = mc

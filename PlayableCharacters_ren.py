@@ -1,6 +1,6 @@
 from typing import Optional, Protocol, runtime_checkable
 
-from game.characters.CharacterProtocol_ren import CharacterProtocol
+from game.characters.character_ren import Character
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.compat.py_compat_ren import Inventory
 from game.items.Item_ren import Item
@@ -18,9 +18,9 @@ init python:
 
 
 @runtime_checkable
-class PlayableCharacter(CharacterProtocol, Protocol):
+class PlayableCharacter(Character, Protocol):
     username: str
-    relationships: dict[CharacterProtocol, Relationship]
+    relationships: dict[Character, Relationship]
     _inventory: list["Item"]
     money: int = 0
     detective: Optional["Detective"] = None
@@ -68,10 +68,8 @@ class PlayableCharacter(CharacterProtocol, Protocol):
         return self.frat == Frat.APES
 
     def repair_relationships(self) -> None:
-        local_relationships: dict[
-            CharacterProtocol, Relationship
-        ] = self.relationships.copy()
+        local_relationships: dict[Character, Relationship] = self.relationships.copy()
         for npc, relationship in local_relationships.items():
-            user: CharacterProtocol = CharacterService.get_user(npc)
+            user: Character = CharacterService.get_user(npc)
             if isinstance(user, NonPlayableCharacter):
                 self.relationships[user] = relationship

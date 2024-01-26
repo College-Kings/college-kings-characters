@@ -1,33 +1,92 @@
-from typing import Optional
-from renpy.character import ADVCharacter
+from abc import abstractmethod
+from typing import Protocol, runtime_checkable
+from game.characters.Relationship_ren import Relationship
 
-from game.characters.Gender_ren import Gender
-from game.characters.CharacterColors_ren import CharacterColor
+from renpy import config
+
+chloe: "Character"
 
 """renpy
 init python:
 """
 
 
-class Character(ADVCharacter):
-    def __init__(
-        self, name: Optional[str], kind: None = None, **properties: object
-    ) -> None:
-        properties.setdefault("who_outlines", [(2, "#000")])
-        properties.setdefault("what_outlines", [(2, "#000")])
+@runtime_checkable
+class Character(Protocol):
+    relationships: dict["Character", Relationship]
 
-        if "gender" in properties and "who_color" not in properties:
-            gender: object = properties.pop("gender")
+    def __hash__(self) -> int:
+        return hash(self.name)
 
-            if gender == Gender.MALE:
-                who_color: str = CharacterColor.get_masculine_color()
-            elif gender == Gender.FEMALE:
-                who_color = CharacterColor.get_feminine_color()
-            elif gender == Gender.ANY:
-                who_color = CharacterColor.get_any_color()
-            else:
-                raise ValueError('Incorrect value for "gender" property')
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self.name})"
 
-            properties["who_color"] = who_color
+    def __str__(self) -> str:
+        return self.name
 
-        super().__init__(name, kind, **properties)
+    def __eq__(self, __value: object) -> bool:
+        if not isinstance(__value, Character):
+            return NotImplemented
+
+        return self.name == __value.name
+
+    @property
+    @abstractmethod
+    def name(self) -> str:
+        ...
+
+    @property
+    @abstractmethod
+    def profile_pictures(self) -> tuple[str, ...]:
+        ...
+
+    @property
+    def profile_picture(self) -> str:
+        try:
+            return self.profile_pictures[0]
+        except (AttributeError, IndexError):
+            if config.developer:
+                raise AttributeError(f"{self.name} has no profile pictures.")
+            return chloe.profile_picture
+
+    # _profile_pictures: list[str] = field(default_factory=list)
+    # _profile_picture: str = ""
+    # money: int = 0
+    # _inventory: list["Item"] = field(default_factory=list)
+    # detective: Optional["Detective"] = None
+    # relationships: dict["ICharacter", "Relationship"] = field(default_factory=dict)
+    # frat: Frat = Frat.WOLVES
+    # daddy_name: str = "Daddy"
+
+    # @property
+    # def name(self) -> str:  # type: ignore
+    #     return store.name
+
+    # @property
+    # def username(self) -> str:
+    #     try:
+    #         if self._username is None:
+    #             return self.name
+    #         return self._username
+    #     except AttributeError:
+    #         return self.name
+
+    # name: str = ""
+    # _username: str = ""
+
+    # relationships: dict[ICharacter, Relationship] = field(default_factory=dict)
+    # mood: Moods = Moods.NORMAL
+
+    # _profile_pictures: list[str] = field(default_factory=list)
+    # points: int = 0
+    # has_had_sex_with_mc: bool = False
+
+    # is_competitive: bool = False
+    # vindictive_characters: tuple["ICharacter", ...] = ()
+    # is_talkative: bool = False
+
+    # _pending_text_messages: list[Message] = field(default_factory=list)
+    # _text_messages: list[Message] = field(default_factory=list)
+
+    # _pending_simplr_messages: list[Message] = field(default_factory=list)
+    # _simplr_messages: list[Message] = field(default_factory=list)
