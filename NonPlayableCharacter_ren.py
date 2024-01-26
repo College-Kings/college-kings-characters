@@ -43,14 +43,20 @@ class NonPlayableCharacter(CharacterProtocol, Protocol):
         return CharacterService.get_profile_pictures(self.name.lower())
 
     @property
-    @abstractmethod
     def traits(self) -> CharacterTrait:
-        ...
+        return CharacterTrait(0)
 
     @property
-    @abstractmethod
     def vindictive_characters(self) -> tuple["NonPlayableCharacter", ...]:
-        ...
+        return ()
+
+    @property
+    def is_competitive(self) -> bool:
+        return CharacterTrait.COMPETITIVE in self.traits
+
+    @property
+    def is_talkative(self) -> bool:
+        return CharacterTrait.TALKATIVE in self.traits
 
     def is_girlfriend(self, character: "CharacterProtocol") -> bool:
         return self.relationships[character] == Relationship.GIRLFRIEND
