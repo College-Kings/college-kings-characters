@@ -1,11 +1,12 @@
-from dataclasses import dataclass, field
+from abc import abstractmethod
+from typing import Protocol, runtime_checkable
+from game.characters.CharacterProtocol_ren import CharacterProtocol
+from game.characters.Relationship_ren import Relationship
+from game.characters.character_traits_ren import CharacterTrait
 
-from renpy import config
 
 from game.characters.CharacterService_ren import CharacterService
-from game.characters.ICharacter_ren import ICharacter
 from game.characters.Moods_ren import Moods
-from game.characters.Relationship_ren import Relationship
 from game.phone.Message_ren import Message
 
 chloe: "NonPlayableCharacter"
@@ -15,136 +16,47 @@ init python:
 """
 
 
-@dataclass
-class NonPlayableCharacter(ICharacter):
-    name: str = ""
-    _username: str = ""
+@runtime_checkable
+class NonPlayableCharacter(CharacterProtocol, Protocol):
+    relationships: dict[CharacterProtocol, Relationship]
 
-    relationships: dict[ICharacter, Relationship] = field(default_factory=dict)
+    pending_text_messages: list[Message]
+    text_messages: list[Message]
+
+    pending_simplr_messages: list[Message]
+    simplr_messages: list[Message]
+
     mood: Moods = Moods.NORMAL
-
-    _profile_pictures: list[str] = field(default_factory=list)
     points: int = 0
-    has_had_sex_with_mc: bool = False
 
-    is_competitive: bool = False
-    vindictive_characters: tuple["ICharacter", ...] = ()
-    is_talkative: bool = False
-
-    _pending_text_messages: list[Message] = field(default_factory=list)
-    _text_messages: list[Message] = field(default_factory=list)
-
-    _pending_simplr_messages: list[Message] = field(default_factory=list)
-    _simplr_messages: list[Message] = field(default_factory=list)
+    # is_competitive: bool = False
+    # vindictive_characters: tuple[PlayableCharacter, ...] = ()
+    # is_talkative: bool = False
 
     @property
+    @abstractmethod
     def username(self) -> str:
-        try:
-            if not self._username:
-                return self.name
-            return self._username
-        except AttributeError:
-            return self.name
-
-    @username.setter
-    def username(self, value: str) -> None:
-        self._username = value
+        ...
 
     @property
-    def profile_pictures(self) -> list[str]:
+    def profile_pictures(self) -> tuple[str, ...]:
         return CharacterService.get_profile_pictures(self.name.lower())
 
-    @profile_pictures.setter
-    def profile_pictures(self, value: list[str]) -> None:
-        self._profile_pictures = CharacterService.get_profile_pictures(
-            self.name.lower()
-        )
+    @property
+    @abstractmethod
+    def traits(self) -> CharacterTrait:
+        ...
 
     @property
-    def pending_text_messages(self) -> list[Message]:
-        try:
-            self._pending_text_messages
-        except AttributeError:
-            self._pending_text_messages = []
+    @abstractmethod
+    def vindictive_characters(self) -> tuple["NonPlayableCharacter", ...]:
+        ...
 
-        return self._pending_text_messages
+    def is_girlfriend(self, character: "CharacterProtocol") -> bool:
+        return self.relationships[character] == Relationship.GIRLFRIEND
 
-    @pending_text_messages.setter
-    def pending_text_messages(self, value: list[Message]) -> None:
-        self._pending_text_messages = value
-
-    @property
-    def text_messages(self) -> list[Message]:
-        try:
-            self._text_messages
-        except AttributeError:
-            self._text_messages = []
-
-        return self._text_messages
-
-    @text_messages.setter
-    def text_messages(self, value: list[Message]) -> None:
-        self._text_messages = value
-
-    @property
-    def pending_simplr_messages(self) -> list[Message]:
-        try:
-            self._pending_simplr_messages
-        except AttributeError:
-            self._pending_simplr_messages = []
-
-        return self._pending_simplr_messages
-
-    @pending_simplr_messages.setter
-    def pending_simplr_messages(self, value: list[Message]) -> None:
-        self._pending_simplr_messages = value
-
-    @property
-    def simplr_messages(self) -> list[Message]:
-        try:
-            self._simplr_messages
-        except AttributeError:
-            self._simplr_messages = []
-
-        return self._simplr_messages
-
-    @simplr_messages.setter
-    def simplr_messages(self, value: list[Message]) -> None:
-        self._simplr_messages = value
-
-    @property
-    def profile_picture(self) -> str:
-        try:
-            return self.profile_pictures[0]
-        except (AttributeError, IndexError):
-            if config.developer:
-                raise AttributeError(f"{self.name} has no profile pictures.")
-            return chloe.profile_picture
-
-    @profile_picture.setter
-    def profile_picture(self, value: str) -> None:
-        pass
-
-    def __hash__(self) -> int:
-        return hash(self.name)
-
-    def __repr__(self) -> str:
-        return f"{self.__class__.__name__}({self.name})"
-
-    def __str__(self) -> str:
-        return self.name
-
-    def __eq__(self, __value: object) -> bool:
-        if not isinstance(__value, NonPlayableCharacter):
-            return NotImplemented
-
-        return self.name == __value.name
-
-    def is_girlfriend(self, character: ICharacter) -> bool:
-        return character.relationships[self] == Relationship.GIRLFRIEND
-
-    def is_fwb(self, character: ICharacter) -> bool:
-        return character.relationships[self] == Relationship.FWB
+    def is_fwb(self, character: "CharacterProtocol") -> bool:
+        return self.relationships[character] == Relationship.FWB
 
 
 # # region Relationships

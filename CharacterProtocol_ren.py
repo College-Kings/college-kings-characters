@@ -1,12 +1,35 @@
 from abc import abstractmethod
-from typing import Protocol
+from typing import Protocol, runtime_checkable
+from game.characters.Relationship_ren import Relationship
+
+from renpy import config
+
+chloe: "CharacterProtocol"
 
 """renpy
 init python:
 """
 
 
+@runtime_checkable
 class CharacterProtocol(Protocol):
+    relationships: dict["CharacterProtocol", Relationship]
+
+    def __hash__(self) -> int:
+        return hash(self.name)
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self.name})"
+
+    def __str__(self) -> str:
+        return self.name
+
+    def __eq__(self, __value: object) -> bool:
+        if not isinstance(__value, CharacterProtocol):
+            return NotImplemented
+
+        return self.name == __value.name
+
     @property
     @abstractmethod
     def name(self) -> str:
@@ -14,8 +37,17 @@ class CharacterProtocol(Protocol):
 
     @property
     @abstractmethod
-    def username(self) -> str:
+    def profile_pictures(self) -> tuple[str, ...]:
         ...
+
+    @property
+    def profile_picture(self) -> str:
+        try:
+            return self.profile_pictures[0]
+        except (AttributeError, IndexError):
+            if config.developer:
+                raise AttributeError(f"{self.name} has no profile pictures.")
+            return chloe.profile_picture
 
     # _profile_pictures: list[str] = field(default_factory=list)
     # _profile_picture: str = ""

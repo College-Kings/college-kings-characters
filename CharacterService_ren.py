@@ -1,6 +1,6 @@
-from typing import Iterable, Optional, Union
-from game.characters.ICharacter_ren import ICharacter
-from game.compat.py_compat_ren import CustomCharacter, MainCharacter
+from typing import Iterable, Optional
+from game.characters.CharacterProtocol_ren import CharacterProtocol
+from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 
 from renpy import store
 import renpy.exports as renpy
@@ -17,22 +17,18 @@ init python:
 
 class CharacterService:
     @staticmethod
-    def get_user(
-        character: Union["ICharacter", "CustomCharacter", "MainCharacter"]
-    ) -> ICharacter:
+    def get_user(character: CharacterProtocol) -> CharacterProtocol:
         try:
             if isinstance(character, PlayableCharacter):
-                user = mc
+                return mc
             else:
-                user = getattr(store, character.name.lower().replace(" ", "_"))
+                return getattr(store, character.name.lower().replace(" ", "_"))
         except AttributeError:
             raise AttributeError(f"{character} is not a valid character.")
 
-        return user
-
     @staticmethod
     def get_relationship(
-        character: ICharacter, target: Optional[ICharacter] = None
+        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
     ) -> Relationship:
         if target is None:
             target = mc
@@ -44,9 +40,9 @@ class CharacterService:
 
     @staticmethod
     def has_relationship(
-        character: ICharacter,
+        character: CharacterProtocol,
         relationship: Relationship,
-        target: Optional[ICharacter] = None,
+        target: Optional[CharacterProtocol] = None,
     ) -> bool:
         if target is None:
             target = mc
@@ -55,9 +51,9 @@ class CharacterService:
 
     @staticmethod
     def set_relationship(
-        character: ICharacter,
+        character: CharacterProtocol,
         relationship: Relationship,
-        target: Optional[ICharacter] = None,
+        target: Optional[CharacterProtocol] = None,
     ) -> None:
         if target is None:
             target = mc
@@ -81,26 +77,26 @@ class CharacterService:
         target.relationships[character] = relationship
 
     @staticmethod
-    def get_mood(character: ICharacter) -> Moods:
+    def get_mood(character: NonPlayableCharacter) -> Moods:
         return character.mood
 
     @staticmethod
-    def has_mood(character: ICharacter, mood: Moods) -> bool:
+    def has_mood(character: NonPlayableCharacter, mood: Moods) -> bool:
         return mood == character.mood or character.mood & mood == mood
 
     @staticmethod
-    def set_mood(character: ICharacter, mood: Moods) -> None:
+    def set_mood(character: NonPlayableCharacter, mood: Moods) -> None:
         if mood == character.mood:
             return
 
         character.mood = mood
 
     @staticmethod
-    def reset_mood(character: ICharacter) -> None:
+    def reset_mood(character: NonPlayableCharacter) -> None:
         character.mood = Moods.NORMAL
 
     @staticmethod
-    def add_mood(character: ICharacter, mood: Moods) -> None:
+    def add_mood(character: NonPlayableCharacter, mood: Moods) -> None:
         if mood == character.mood:
             return
 
@@ -111,25 +107,27 @@ class CharacterService:
         character.mood = character.mood | mood
 
     @staticmethod
-    def remove_mood(character: ICharacter, mood: Moods) -> None:
+    def remove_mood(character: NonPlayableCharacter, mood: Moods) -> None:
         character.mood = character.mood & ~mood
 
     @staticmethod
-    def get_profile_pictures(character_name: str) -> list[str]:
+    def get_profile_pictures(character_name: str) -> tuple[str, ...]:
         directory: str = f"characters/images/{character_name.lower()}"
 
         try:
-            return [file for file in renpy.list_files() if file.startswith(directory)]  # type: ignore
+            return tuple(
+                file for file in renpy.list_files() if file.startswith(directory)
+            )
         except OSError:
-            return [
+            return tuple(
                 file
-                for file in renpy.list_files()  # type: ignore
-                if file.startswith("characters/images/chloe")  # type: ignore
-            ]
+                for file in renpy.list_files()
+                if file.startswith("characters/images/chloe")
+            )
 
     @staticmethod
     def is_exclusive_girlfriend(
-        character: ICharacter, target: Optional[ICharacter] = None
+        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
     ) -> bool:
         if target is None:
             target = mc
@@ -142,7 +140,7 @@ class CharacterService:
 
     @staticmethod
     def is_girlfriend(
-        character: ICharacter, target: Optional[ICharacter] = None
+        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
     ) -> bool:
         if target is None:
             target = mc
@@ -153,7 +151,8 @@ class CharacterService:
 
     @staticmethod
     def is_girlfriends(
-        characters: Iterable[ICharacter], target: Optional[ICharacter] = None
+        characters: Iterable[CharacterProtocol],
+        target: Optional[CharacterProtocol] = None,
     ) -> bool:
         if target is None:
             target = mc
@@ -165,7 +164,7 @@ class CharacterService:
 
     @staticmethod
     def is_exclusive(
-        character: ICharacter, target: Optional[ICharacter] = None
+        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
     ) -> bool:
         if target is None:
             target = mc
@@ -177,14 +176,19 @@ class CharacterService:
         )
 
     @staticmethod
-    def is_fwb(character: ICharacter, target: Optional[ICharacter] = None) -> bool:
+    def is_fwb(
+        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
+    ) -> bool:
         if target is None:
             target = mc
 
         return CharacterService.has_relationship(character, Relationship.FWB, target)
 
     @staticmethod
-    def is_fwbs(characters: Iterable[ICharacter], target: Optional[ICharacter] = None):
+    def is_fwbs(
+        characters: Iterable[CharacterProtocol],
+        target: Optional[CharacterProtocol] = None,
+    ) -> bool:
         if target is None:
             target = mc
 
@@ -193,21 +197,27 @@ class CharacterService:
         )
 
     @staticmethod
-    def is_dating(character: ICharacter, target: Optional[ICharacter] = None) -> bool:
+    def is_dating(
+        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
+    ) -> bool:
         if target is None:
             target = mc
 
         return CharacterService.has_relationship(character, Relationship.DATING, target)
 
     @staticmethod
-    def is_kissed(character: ICharacter, target: Optional[ICharacter] = None) -> bool:
+    def is_kissed(
+        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
+    ) -> bool:
         if target is None:
             target = mc
 
         return CharacterService.has_relationship(character, Relationship.KISSED, target)
 
     @staticmethod
-    def is_friend(character: ICharacter, target: Optional[ICharacter] = None) -> bool:
+    def is_friend(
+        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
+    ) -> bool:
         if target is None:
             target = mc
 
@@ -215,7 +225,8 @@ class CharacterService:
 
     @staticmethod
     def is_friends(
-        characters: Iterable[ICharacter], target: Optional[ICharacter] = None
+        characters: Iterable[CharacterProtocol],
+        target: Optional[CharacterProtocol] = None,
     ) -> bool:
         if target is None:
             target = mc
@@ -225,14 +236,19 @@ class CharacterService:
         )
 
     @staticmethod
-    def is_ex(character: ICharacter, target: Optional[ICharacter] = None) -> bool:
+    def is_ex(
+        character: CharacterProtocol, target: Optional[CharacterProtocol] = None
+    ) -> bool:
         if target is None:
             target = mc
 
         return CharacterService.has_relationship(character, Relationship.EX, target)
 
     @staticmethod
-    def is_exes(characters: Iterable[ICharacter], target: Optional[ICharacter] = None):
+    def is_exes(
+        characters: Iterable[CharacterProtocol],
+        target: Optional[CharacterProtocol] = None,
+    ):
         if target is None:
             target = mc
 
@@ -241,9 +257,9 @@ class CharacterService:
         )
 
     @staticmethod
-    def is_mad(character: ICharacter) -> bool:
+    def is_mad(character: NonPlayableCharacter) -> bool:
         return CharacterService.has_mood(character, Moods.MAD)
 
     @staticmethod
-    def is_threatened(character: ICharacter) -> bool:
+    def is_threatened(character: NonPlayableCharacter) -> bool:
         return CharacterService.has_mood(character, Moods.THREATENED)

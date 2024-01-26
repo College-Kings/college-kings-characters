@@ -3,14 +3,14 @@ from renpy.minstore import _
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 
-nora: NonPlayableCharacter
+ryan: NonPlayableCharacter
 
 """renpy
 init python:
 """
 
 
-class Chloe(NonPlayableCharacter):
+class Charlie(NonPlayableCharacter):
     def __init__(self) -> None:
         self.relationships = {}
 
@@ -22,11 +22,11 @@ class Chloe(NonPlayableCharacter):
 
     @property
     def name(self) -> str:
-        return _("Chloe")
+        return _("Charlie")
 
     @property
     def username(self) -> str:
-        return _("Chloe101")
+        return _("CharliAndTheCockFactory")
 
     @property
     def traits(self) -> CharacterTrait:
@@ -34,4 +34,4 @@ class Chloe(NonPlayableCharacter):
 
     @property
     def vindictive_characters(self) -> tuple[NonPlayableCharacter, ...]:
-        return (nora,)
+        return ()
