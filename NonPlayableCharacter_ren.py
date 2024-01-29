@@ -20,7 +20,7 @@ class NonPlayableCharacter(ICharacter):
     name: str = ""
     _username: str = ""
 
-    relationships: dict[ICharacter, Relationship] = field(default_factory=dict)
+    relationships: dict[ICharacter, "Relationship"] = field(default_factory=dict)
     mood: Moods = Moods.NORMAL
 
     _profile_pictures: list[str] = field(default_factory=list)
@@ -31,11 +31,11 @@ class NonPlayableCharacter(ICharacter):
     vindictive_characters: tuple["ICharacter", ...] = ()
     is_talkative: bool = False
 
-    _pending_text_messages: list[Message] = field(default_factory=list)
-    _text_messages: list[Message] = field(default_factory=list)
+    _pending_text_messages: list["Message"] = field(default_factory=list)
+    _text_messages: list["Message"] = field(default_factory=list)
 
-    _pending_simplr_messages: list[Message] = field(default_factory=list)
-    _simplr_messages: list[Message] = field(default_factory=list)
+    _pending_simplr_messages: list["Message"] = field(default_factory=list)
+    _simplr_messages: list["Message"] = field(default_factory=list)
 
     @property
     def username(self) -> str:
@@ -61,7 +61,7 @@ class NonPlayableCharacter(ICharacter):
         )
 
     @property
-    def pending_text_messages(self) -> list[Message]:
+    def pending_text_messages(self) -> list["Message"]:
         try:
             self._pending_text_messages
         except AttributeError:
@@ -70,11 +70,11 @@ class NonPlayableCharacter(ICharacter):
         return self._pending_text_messages
 
     @pending_text_messages.setter
-    def pending_text_messages(self, value: list[Message]) -> None:
+    def pending_text_messages(self, value: list["Message"]) -> None:
         self._pending_text_messages = value
 
     @property
-    def text_messages(self) -> list[Message]:
+    def text_messages(self) -> list["Message"]:
         try:
             self._text_messages
         except AttributeError:
@@ -83,11 +83,11 @@ class NonPlayableCharacter(ICharacter):
         return self._text_messages
 
     @text_messages.setter
-    def text_messages(self, value: list[Message]) -> None:
+    def text_messages(self, value: list["Message"]) -> None:
         self._text_messages = value
 
     @property
-    def pending_simplr_messages(self) -> list[Message]:
+    def pending_simplr_messages(self) -> list["Message"]:
         try:
             self._pending_simplr_messages
         except AttributeError:
@@ -96,11 +96,11 @@ class NonPlayableCharacter(ICharacter):
         return self._pending_simplr_messages
 
     @pending_simplr_messages.setter
-    def pending_simplr_messages(self, value: list[Message]) -> None:
+    def pending_simplr_messages(self, value: list["Message"]) -> None:
         self._pending_simplr_messages = value
 
     @property
-    def simplr_messages(self) -> list[Message]:
+    def simplr_messages(self) -> list["Message"]:
         try:
             self._simplr_messages
         except AttributeError:
@@ -109,7 +109,7 @@ class NonPlayableCharacter(ICharacter):
         return self._simplr_messages
 
     @simplr_messages.setter
-    def simplr_messages(self, value: list[Message]) -> None:
+    def simplr_messages(self, value: list["Message"]) -> None:
         self._simplr_messages = value
 
     @property
@@ -145,6 +145,9 @@ class NonPlayableCharacter(ICharacter):
 
     def is_fwb(self, character: ICharacter) -> bool:
         return character.relationships[self] == Relationship.FWB
+
+    def is_friend(self, character: ICharacter) -> bool:
+        return character.relationships[self] == Relationship.FRIEND
 
 
 # # region Relationships
