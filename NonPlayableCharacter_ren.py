@@ -123,7 +123,7 @@ class NonPlayableCharacter(ICharacter):
 
     @profile_picture.setter
     def profile_picture(self, value: str) -> None:
-        pass
+        return
 
     def __hash__(self) -> int:
         return hash(self.name)
