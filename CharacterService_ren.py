@@ -104,11 +104,11 @@ class CharacterService:
             character.mood = mood
             return
 
-        character.mood = character.mood | mood
+        character.mood |= mood
 
     @staticmethod
     def remove_mood(character: NonPlayableCharacter, mood: Moods) -> None:
-        character.mood = character.mood & ~mood
+        character.mood &= ~mood
 
     @staticmethod
     def get_profile_pictures(character_name: str) -> tuple[str, ...]:
