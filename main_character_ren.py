@@ -9,6 +9,6 @@ init python:
 
 class MainCharacter(PlayableCharacter):
     def __init__(self) -> None:
-        self.username = name
+        self._username = name
 
         self.relationships = {}
