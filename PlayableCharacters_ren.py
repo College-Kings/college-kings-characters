@@ -2,7 +2,6 @@ from typing import Optional, Protocol, runtime_checkable
 
 from game.characters.character_ren import Character
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-from game.compat.py_compat_ren import Inventory
 from game.items.Item_ren import Item
 from game.characters.Frat_ren import Frat
 from game.characters.CharacterService_ren import CharacterService
@@ -19,9 +18,9 @@ init python:
 
 @runtime_checkable
 class PlayableCharacter(Character, Protocol):
-    username: str
+    _username: str
     relationships: dict[Character, Relationship]
-    _inventory: list["Item"]
+    inventory: list["Item"]
     money: int = 0
     detective: Optional["Detective"] = None
     frat: Frat = Frat.WOLVES
@@ -32,24 +31,16 @@ class PlayableCharacter(Character, Protocol):
         return name
 
     @property
-    def profile_pictures(self) -> tuple[str, ...]:
-        return CharacterService.get_profile_pictures("mc")
+    def username(self) -> str:
+        return self._username
+
+    @username.setter
+    def username(self, value: str) -> None:
+        self._username = value
 
     @property
-    def inventory(self) -> list["Item"]:
-        try:
-            self._inventory
-        except AttributeError:
-            old_inventory = self.__dict__.get("inventory", [])
-            if isinstance(old_inventory, Inventory):
-                old_inventory = old_inventory.items
-            self._inventory = [item for item in old_inventory]
-
-        return self._inventory
-
-    @inventory.setter
-    def inventory(self, value: list["Item"]) -> None:
-        self._inventory = value
+    def profile_pictures(self) -> tuple[str, ...]:
+        return CharacterService.get_profile_pictures("mc")
 
     @property
     def girlfriends(self) -> tuple[NonPlayableCharacter, ...]:
