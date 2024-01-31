@@ -19,7 +19,7 @@ class CharacterService:
     @staticmethod
     def get_user(
         character: Union["ICharacter", "CustomCharacter", "MainCharacter"]
-    ) -> ICharacter:
+    ) -> "ICharacter":
         try:
             if isinstance(character, PlayableCharacter):
                 user = mc
@@ -32,8 +32,8 @@ class CharacterService:
 
     @staticmethod
     def get_relationship(
-        character: ICharacter, target: Optional[ICharacter] = None
-    ) -> Relationship:
+        character: "ICharacter", target: Optional["ICharacter"] = None
+    ) -> "Relationship":
         if target is None:
             target = mc
 
@@ -44,9 +44,9 @@ class CharacterService:
 
     @staticmethod
     def has_relationship(
-        character: ICharacter,
-        relationship: Relationship,
-        target: Optional[ICharacter] = None,
+        character: "ICharacter",
+        relationship: "Relationship",
+        target: Optional["ICharacter"] = None,
     ) -> bool:
         if target is None:
             target = mc
@@ -55,9 +55,9 @@ class CharacterService:
 
     @staticmethod
     def set_relationship(
-        character: ICharacter,
-        relationship: Relationship,
-        target: Optional[ICharacter] = None,
+        character: "ICharacter",
+        relationship: "Relationship",
+        target: Optional["ICharacter"] = None,
     ) -> None:
         if target is None:
             target = mc
@@ -81,26 +81,26 @@ class CharacterService:
         target.relationships[character] = relationship
 
     @staticmethod
-    def get_mood(character: ICharacter) -> Moods:
+    def get_mood(character: "ICharacter") -> "Moods":
         return character.mood
 
     @staticmethod
-    def has_mood(character: ICharacter, mood: Moods) -> bool:
+    def has_mood(character: "ICharacter", mood: "Moods") -> bool:
         return mood == character.mood or character.mood & mood == mood
 
     @staticmethod
-    def set_mood(character: ICharacter, mood: Moods) -> None:
+    def set_mood(character: "ICharacter", mood: "Moods") -> None:
         if mood == character.mood:
             return
 
         character.mood = mood
 
     @staticmethod
-    def reset_mood(character: ICharacter) -> None:
+    def reset_mood(character: "ICharacter") -> None:
         character.mood = Moods.NORMAL
 
     @staticmethod
-    def add_mood(character: ICharacter, mood: Moods) -> None:
+    def add_mood(character: "ICharacter", mood: "Moods") -> None:
         if mood == character.mood:
             return
 
@@ -111,7 +111,7 @@ class CharacterService:
         character.mood = character.mood | mood
 
     @staticmethod
-    def remove_mood(character: ICharacter, mood: Moods) -> None:
+    def remove_mood(character: "ICharacter", mood: "Moods") -> None:
         character.mood = character.mood & ~mood
 
     @staticmethod
@@ -129,7 +129,7 @@ class CharacterService:
 
     @staticmethod
     def is_exclusive_girlfriend(
-        character: ICharacter, target: Optional[ICharacter] = None
+        character: "ICharacter", target: Optional["ICharacter"] = None
     ) -> bool:
         if target is None:
             target = mc
@@ -142,7 +142,7 @@ class CharacterService:
 
     @staticmethod
     def is_girlfriend(
-        character: ICharacter, target: Optional[ICharacter] = None
+        character: "ICharacter", target: Optional["ICharacter"] = None
     ) -> bool:
         if target is None:
             target = mc
@@ -153,7 +153,7 @@ class CharacterService:
 
     @staticmethod
     def is_girlfriends(
-        characters: Iterable[ICharacter], target: Optional[ICharacter] = None
+        characters: Iterable["ICharacter"], target: Optional["ICharacter"] = None
     ) -> bool:
         if target is None:
             target = mc
@@ -165,7 +165,7 @@ class CharacterService:
 
     @staticmethod
     def is_exclusive(
-        character: ICharacter, target: Optional[ICharacter] = None
+        character: "ICharacter", target: Optional["ICharacter"] = None
     ) -> bool:
         if target is None:
             target = mc
@@ -177,14 +177,16 @@ class CharacterService:
         )
 
     @staticmethod
-    def is_fwb(character: ICharacter, target: Optional[ICharacter] = None) -> bool:
+    def is_fwb(character: "ICharacter", target: Optional["ICharacter"] = None) -> bool:
         if target is None:
             target = mc
 
         return CharacterService.has_relationship(character, Relationship.FWB, target)
 
     @staticmethod
-    def is_fwbs(characters: Iterable[ICharacter], target: Optional[ICharacter] = None):
+    def is_fwbs(
+        characters: Iterable["ICharacter"], target: Optional["ICharacter"] = None
+    ):
         if target is None:
             target = mc
 
@@ -193,21 +195,27 @@ class CharacterService:
         )
 
     @staticmethod
-    def is_dating(character: ICharacter, target: Optional[ICharacter] = None) -> bool:
+    def is_dating(
+        character: "ICharacter", target: Optional["ICharacter"] = None
+    ) -> bool:
         if target is None:
             target = mc
 
         return CharacterService.has_relationship(character, Relationship.DATING, target)
 
     @staticmethod
-    def is_kissed(character: ICharacter, target: Optional[ICharacter] = None) -> bool:
+    def is_kissed(
+        character: "ICharacter", target: Optional["ICharacter"] = None
+    ) -> bool:
         if target is None:
             target = mc
 
         return CharacterService.has_relationship(character, Relationship.KISSED, target)
 
     @staticmethod
-    def is_friend(character: ICharacter, target: Optional[ICharacter] = None) -> bool:
+    def is_friend(
+        character: "ICharacter", target: Optional["ICharacter"] = None
+    ) -> bool:
         if target is None:
             target = mc
 
@@ -215,7 +223,7 @@ class CharacterService:
 
     @staticmethod
     def is_friends(
-        characters: Iterable[ICharacter], target: Optional[ICharacter] = None
+        characters: Iterable["ICharacter"], target: Optional["ICharacter"] = None
     ) -> bool:
         if target is None:
             target = mc
@@ -225,14 +233,16 @@ class CharacterService:
         )
 
     @staticmethod
-    def is_ex(character: ICharacter, target: Optional[ICharacter] = None) -> bool:
+    def is_ex(character: "ICharacter", target: Optional["ICharacter"] = None) -> bool:
         if target is None:
             target = mc
 
         return CharacterService.has_relationship(character, Relationship.EX, target)
 
     @staticmethod
-    def is_exes(characters: Iterable[ICharacter], target: Optional[ICharacter] = None):
+    def is_exes(
+        characters: Iterable["ICharacter"], target: Optional["ICharacter"] = None
+    ):
         if target is None:
             target = mc
 
@@ -241,9 +251,9 @@ class CharacterService:
         )
 
     @staticmethod
-    def is_mad(character: ICharacter) -> bool:
+    def is_mad(character: "ICharacter") -> bool:
         return CharacterService.has_mood(character, Moods.MAD)
 
     @staticmethod
-    def is_threatened(character: ICharacter) -> bool:
+    def is_threatened(character: "ICharacter") -> bool:
         return CharacterService.has_mood(character, Moods.THREATENED)

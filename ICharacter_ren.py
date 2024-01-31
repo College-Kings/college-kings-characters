@@ -11,8 +11,8 @@ class ICharacter:
     name: str
     _username: str
 
-    relationships: dict["ICharacter", Relationship]
-    mood: Moods
+    relationships: dict["ICharacter", "Relationship"]
+    mood: "Moods"
 
     _profile_pictures: list[str]
     _profile_picture: str
@@ -24,11 +24,11 @@ class ICharacter:
     vindictive_characters: tuple["ICharacter", ...]
     is_talkative: bool
 
-    _pending_text_messages: list[Message]
-    _text_messages: list[Message]
+    _pending_text_messages: list["Message"]
+    _text_messages: list["Message"]
 
-    _pending_simplr_messages: list[Message]
-    _simplr_messages: list[Message]
+    _pending_simplr_messages: list["Message"]
+    _simplr_messages: list["Message"]
 
     @property
     def username(self) -> str:
@@ -57,33 +57,33 @@ class ICharacter:
         self._profile_picture = value
 
     @property
-    def pending_text_messages(self) -> list[Message]:
+    def pending_text_messages(self) -> list["Message"]:
         return self._pending_text_messages
 
     @pending_text_messages.setter
-    def pending_text_messages(self, value: list[Message]) -> None:
+    def pending_text_messages(self, value: list["Message"]) -> None:
         self._pending_text_messages = value
 
     @property
-    def text_messages(self) -> list[Message]:
+    def text_messages(self) -> list["Message"]:
         return self._text_messages
 
     @text_messages.setter
-    def text_messages(self, value: list[Message]) -> None:
+    def text_messages(self, value: list["Message"]) -> None:
         self._text_messages = value
 
     @property
-    def pending_simplr_messages(self) -> list[Message]:
+    def pending_simplr_messages(self) -> list["Message"]:
         return self._pending_simplr_messages
 
     @pending_simplr_messages.setter
-    def pending_simplr_messages(self, value: list[Message]) -> None:
+    def pending_simplr_messages(self, value: list["Message"]) -> None:
         self._pending_simplr_messages = value
 
     @property
-    def simplr_messages(self) -> list[Message]:
+    def simplr_messages(self) -> list["Message"]:
         return self._simplr_messages
 
     @simplr_messages.setter
-    def simplr_messages(self, value: list[Message]) -> None:
+    def simplr_messages(self, value: list["Message"]) -> None:
         self._simplr_messages = value
