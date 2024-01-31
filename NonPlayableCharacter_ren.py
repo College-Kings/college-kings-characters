@@ -16,11 +16,11 @@ init python:
 
 @runtime_checkable
 class NonPlayableCharacter(Character, Protocol):
-    pending_text_messages: list[Message]
-    text_messages: list[Message]
+    pending_text_messages: list["Message"]
+    text_messages: list["Message"]
 
-    pending_simplr_messages: list[Message]
-    simplr_messages: list[Message]
+    pending_simplr_messages: list["Message"]
+    simplr_messages: list["Message"]
 
     points: int = 0
 
@@ -34,7 +34,7 @@ class NonPlayableCharacter(Character, Protocol):
         return CharacterService.get_profile_pictures(self.name.lower())
 
     @property
-    def traits(self) -> CharacterTrait:
+    def traits(self) -> "CharacterTrait":
         return CharacterTrait(0)
 
     @property

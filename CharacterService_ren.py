@@ -29,7 +29,7 @@ class CharacterService:
     @staticmethod
     def get_relationship(
         character: Character, target: Optional[Character] = None
-    ) -> Relationship:
+    ) -> "Relationship":
         if target is None:
             target = mc
 
@@ -41,7 +41,7 @@ class CharacterService:
     @staticmethod
     def has_relationship(
         character: Character,
-        relationship: Relationship,
+        relationship: "Relationship",
         target: Optional[Character] = None,
     ) -> bool:
         if target is None:
@@ -52,7 +52,7 @@ class CharacterService:
     @staticmethod
     def set_relationship(
         character: Character,
-        relationship: Relationship,
+        relationship: "Relationship",
         target: Optional[Character] = None,
     ) -> None:
         if target is None:
@@ -77,26 +77,26 @@ class CharacterService:
         target.relationships[character] = relationship
 
     @staticmethod
-    def get_mood(character: NonPlayableCharacter) -> Moods:
+    def get_mood(character: "NonPlayableCharacter") -> "Moods":
         return character.mood
 
     @staticmethod
-    def has_mood(character: NonPlayableCharacter, mood: Moods) -> bool:
+    def has_mood(character: "NonPlayableCharacter", mood: "Moods") -> bool:
         return mood == character.mood or character.mood & mood == mood
 
     @staticmethod
-    def set_mood(character: NonPlayableCharacter, mood: Moods) -> None:
+    def set_mood(character: "NonPlayableCharacter", mood: "Moods") -> None:
         if mood == character.mood:
             return
 
         character.mood = mood
 
     @staticmethod
-    def reset_mood(character: NonPlayableCharacter) -> None:
+    def reset_mood(character: "NonPlayableCharacter") -> None:
         character.mood = Moods.NORMAL
 
     @staticmethod
-    def add_mood(character: NonPlayableCharacter, mood: Moods) -> None:
+    def add_mood(character: "NonPlayableCharacter", mood: "Moods") -> None:
         if mood == character.mood:
             return
 
@@ -107,7 +107,7 @@ class CharacterService:
         character.mood |= mood
 
     @staticmethod
-    def remove_mood(character: NonPlayableCharacter, mood: Moods) -> None:
+    def remove_mood(character: "NonPlayableCharacter", mood: "Moods") -> None:
         character.mood &= ~mood
 
     @staticmethod
@@ -243,9 +243,9 @@ class CharacterService:
         )
 
     @staticmethod
-    def is_mad(character: NonPlayableCharacter) -> bool:
+    def is_mad(character: "NonPlayableCharacter") -> bool:
         return CharacterService.has_mood(character, Moods.MAD)
 
     @staticmethod
-    def is_threatened(character: NonPlayableCharacter) -> bool:
+    def is_threatened(character: "NonPlayableCharacter") -> bool:
         return CharacterService.has_mood(character, Moods.THREATENED)

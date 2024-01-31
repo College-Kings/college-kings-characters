@@ -9,13 +9,13 @@ from game.characters.Relationship_ren import Relationship
 chloe: "Character"
 
 """renpy
-init python:
+init -10 python:
 """
 
 
 @runtime_checkable
 class Character(Protocol):
-    relationships: dict["Character", Relationship]
+    relationships: dict["Character", "Relationship"]
     _mood: Moods = Moods.NORMAL
 
     def __hash__(self) -> int:
@@ -90,10 +90,12 @@ class Character(Protocol):
 
     # endregion Moods
     # region Relationships
-    def get_relationship(self, target: "Character") -> Relationship:
+    def get_relationship(self, target: "Character") -> "Relationship":
         return self.relationships.setdefault(target, Relationship.FRIEND)
 
-    def has_relationship(self, relationship: Relationship, target: "Character") -> bool:
+    def has_relationship(
+        self, relationship: "Relationship", target: "Character"
+    ) -> bool:
         return self.get_relationship(target) == relationship
 
     def is_exclusive_girlfriend(self, target: "Character") -> bool:

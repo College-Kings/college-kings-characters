@@ -2,7 +2,7 @@ import enum
 from enum import Flag
 
 """renpy
-init python:
+init -20 python:
 """
 
 
