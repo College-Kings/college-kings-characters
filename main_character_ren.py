@@ -12,3 +12,4 @@ class MainCharacter(PlayableCharacter):
         self._username = name
 
         self.relationships = {}
+        self.inventory = []
