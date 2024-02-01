@@ -6,8 +6,9 @@ from game.characters.character_traits_ren import CharacterTrait
 
 from game.characters.CharacterService_ren import CharacterService
 from game.phone.Message_ren import Message
+from game.characters.npcs.chloe_ren import Chloe
 
-chloe: "NonPlayableCharacter"
+chloe: Chloe
 
 """renpy
 init python:
