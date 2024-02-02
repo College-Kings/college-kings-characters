@@ -3,10 +3,12 @@ from typing import Protocol, runtime_checkable
 
 from renpy import config
 
+from game.characters.npcs.chloe_ren import Chloe
 from game.characters.Moods_ren import Moods
 from game.characters.Relationship_ren import Relationship
 
-chloe: "Character"
+chloe: Chloe
+name: str
 
 """renpy
 init -10 python:
@@ -16,7 +18,8 @@ init -10 python:
 @runtime_checkable
 class Character(Protocol):
     relationships: dict["Character", "Relationship"]
-    _mood: Moods = Moods.NORMAL
+    mood: Moods = Moods.NORMAL
+    money: int = 0
 
     def __hash__(self) -> int:
         return hash(self.name)
@@ -25,7 +28,14 @@ class Character(Protocol):
         return f"{self.__class__.__name__}({self.name})"
 
     def __str__(self) -> str:
-        return self.name
+        if self.name:
+            return self.name
+        name = self.__dict__.get("name", None)
+        if name:
+            return name
+        if self.username:
+            return self.username
+        return self.__class__.__name__
 
     def __eq__(self, __value: object) -> bool:
         if not isinstance(__value, Character):
@@ -34,19 +44,15 @@ class Character(Protocol):
         return self.name == __value.name
 
     @property
-    @abstractmethod
-    def name(self) -> str:
-        ...
+    def name(self) -> str: ...
 
     @property
     @abstractmethod
-    def username(self) -> str:
-        ...
+    def username(self) -> str: ...
 
     @property
     @abstractmethod
-    def profile_pictures(self) -> tuple[str, ...]:
-        ...
+    def profile_pictures(self) -> tuple[str, ...]: ...
 
     @property
     def profile_picture(self) -> str:
@@ -58,29 +64,21 @@ class Character(Protocol):
             return chloe.profile_picture
 
     # region Moods
-    @property
-    def mood(self) -> Moods:
-        return self._mood
-
-    @mood.setter
-    def mood(self, value: Moods) -> None:
-        self._mood = value
-
     def has_mood(self, mood: Moods) -> bool:
-        return mood in self._mood
+        return mood in self.mood
 
     def reset_mood(self) -> None:
-        self._mood = Moods.NORMAL
+        self.mood = Moods.NORMAL
 
     def add_mood(self, mood: Moods) -> None:
-        if self._mood == Moods.NORMAL:
-            self._mood = mood
+        if self.mood == Moods.NORMAL:
+            self.mood = mood
             return
 
-        self._mood |= mood
+        self.mood |= mood
 
     def remove_mood(self, mood: Moods) -> None:
-        self._mood &= ~mood
+        self.mood &= ~mood
 
     def is_mad(self) -> bool:
         return self.mood == Moods.MAD
