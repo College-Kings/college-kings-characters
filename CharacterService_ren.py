@@ -1,15 +1,16 @@
 from typing import Iterable, Optional
-from game.characters.character_ren import Character
-from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 
 from renpy import store
 import renpy.exports as renpy
 
+from game.characters.character_ren import Character
+from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
+from game.characters.main_character_ren import MainCharacter
 from game.characters.Relationship_ren import Relationship
 from game.characters.Moods_ren import Moods
 from game.characters.PlayableCharacters_ren import PlayableCharacter
 
-mc: PlayableCharacter
+mc: MainCharacter
 """renpy
 init python:
 """
