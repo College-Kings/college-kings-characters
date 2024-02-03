@@ -1,4 +1,4 @@
-from typing import Iterable, Optional
+from typing import Iterable, Optional, Union
 
 from renpy import store
 import renpy.exports as renpy
@@ -18,7 +18,17 @@ init python:
 
 class CharacterService:
     @staticmethod
-    def get_user(character: Character) -> Character:
+    def get_user_by_str(name: str) -> Character:
+        try:
+            return getattr(store, name.lower().replace(" ", "_"))
+        except AttributeError:
+            raise AttributeError(f"{name} is not a valid character.")
+
+    @staticmethod
+    def get_user(character: Union[Character, str]) -> Character:
+        if isinstance(character, str):
+            return CharacterService.get_user_by_str(character)
+
         try:
             if isinstance(character, PlayableCharacter):
                 return mc
