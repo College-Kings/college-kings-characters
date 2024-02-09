@@ -141,13 +141,22 @@ class NonPlayableCharacter(ICharacter):
         return self.name == __value.name
 
     def is_girlfriend(self, character: ICharacter) -> bool:
-        return character.relationships[self] == Relationship.GIRLFRIEND
+        return (
+            character.relationships.setdefault(self, Relationship.FRIEND)
+            == Relationship.GIRLFRIEND
+        )
 
     def is_fwb(self, character: ICharacter) -> bool:
-        return character.relationships[self] == Relationship.FWB
+        return (
+            character.relationships.setdefault(self, Relationship.FRIEND)
+            == Relationship.FWB
+        )
 
     def is_friend(self, character: ICharacter) -> bool:
-        return character.relationships[self] == Relationship.FRIEND
+        return (
+            character.relationships.setdefault(self, Relationship.FRIEND)
+            == Relationship.FRIEND
+        )
 
 
 # # region Relationships
