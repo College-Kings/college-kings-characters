@@ -158,6 +158,12 @@ class NonPlayableCharacter(ICharacter):
             == Relationship.FRIEND
         )
 
+    def is_ex(self, character: ICharacter) -> bool:
+        return (
+            character.relationships.setdefault(self, Relationship.FRIEND)
+            == Relationship.EX
+        )
+
 
 # # region Relationships
 # # region Old CK1
