@@ -71,12 +71,6 @@ class CharacterService:
         if isinstance(target.relationships, set):
             target.relationships = {r: Relationship.FWB for r in target.relationships}
 
-        if (
-            character.relationships.setdefault(target, Relationship.FRIEND)
-            == relationship
-        ):
-            return
-
         character.relationships[target] = relationship
         target.relationships[character] = relationship
 
