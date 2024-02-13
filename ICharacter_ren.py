@@ -1,3 +1,4 @@
+from typing import Optional
 from game.characters.Moods_ren import Moods
 from game.characters.Relationship_ren import Relationship
 from game.phone.Message_ren import Message
@@ -49,7 +50,7 @@ class ICharacter:
         self._profile_pictures = value
 
     @property
-    def profile_picture(self) -> str:
+    def profile_picture(self) -> Optional[str]:
         return self._profile_picture
 
     @profile_picture.setter

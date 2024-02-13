@@ -1,6 +1,5 @@
 from dataclasses import dataclass, field
-
-from renpy import config
+from typing import Optional
 
 from game.characters.CharacterService_ren import CharacterService
 from game.characters.ICharacter_ren import ICharacter
@@ -113,13 +112,11 @@ class NonPlayableCharacter(ICharacter):
         self._simplr_messages = value
 
     @property
-    def profile_picture(self) -> str:
+    def profile_picture(self) -> Optional[str]:
         try:
             return self.profile_pictures[0]
         except (AttributeError, IndexError):
-            if config.developer:
-                raise AttributeError(f"{self.name} has no profile pictures.")
-            return chloe.profile_picture
+            return None
 
     @profile_picture.setter
     def profile_picture(self, value: str) -> None:
