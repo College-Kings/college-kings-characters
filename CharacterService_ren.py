@@ -1,15 +1,16 @@
-from typing import Iterable, Optional
-from game.characters.character_ren import Character
-from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
+from typing import Iterable, Optional, Union
 
 from renpy import store
 import renpy.exports as renpy
 
+from game.characters.character_ren import Character
+from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
+from game.characters.main_character_ren import MainCharacter
 from game.characters.Relationship_ren import Relationship
 from game.characters.Moods_ren import Moods
 from game.characters.PlayableCharacters_ren import PlayableCharacter
 
-mc: PlayableCharacter
+mc: MainCharacter
 """renpy
 init python:
 """
@@ -17,7 +18,17 @@ init python:
 
 class CharacterService:
     @staticmethod
-    def get_user(character: Character) -> Character:
+    def get_user_by_str(name: str) -> Character:
+        try:
+            return getattr(store, name.lower().replace(" ", "_"))
+        except AttributeError:
+            raise AttributeError(f"{name} is not a valid character.")
+
+    @staticmethod
+    def get_user(character: Union[Character, str]) -> Character:
+        if isinstance(character, str):
+            return CharacterService.get_user_by_str(character)
+
         try:
             if isinstance(character, PlayableCharacter):
                 return mc
