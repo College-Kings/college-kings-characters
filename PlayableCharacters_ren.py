@@ -7,7 +7,6 @@ from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.items.Item_ren import Item
 from game.characters.Frat_ren import Frat
 from game.characters.CharacterService_ren import CharacterService
-from game.characters.Relationship_ren import Relationship
 from game.detective.Detective_ren import Detective
 
 name: str = ""
@@ -21,7 +20,6 @@ init python:
 class PlayableCharacter(Character, Protocol):
     _username: str
     _profile_picture: str
-    relationships: dict[Character, Relationship]
     inventory: list["Item"]
     detective: Optional["Detective"] = None
     frat: Frat = Frat.WOLVES
