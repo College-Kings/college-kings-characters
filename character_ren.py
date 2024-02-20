@@ -1,7 +1,5 @@
 from abc import abstractmethod
-from typing import Protocol, runtime_checkable
-
-from renpy import config
+from typing import Optional, Protocol, runtime_checkable
 
 from game.characters.npcs.chloe_ren import Chloe
 from game.characters.Moods_ren import Moods
@@ -56,13 +54,11 @@ class Character(Protocol):
     def profile_pictures(self) -> tuple[str, ...]: ...
 
     @property
-    def profile_picture(self) -> str:
+    def profile_picture(self) -> Optional[str]:
         try:
             return self.profile_pictures[0]
         except (AttributeError, IndexError):
-            if config.developer:
-                raise AttributeError(f"{self.name} has no profile pictures.")
-            return chloe.profile_picture
+            return None
 
     # region Moods
     def has_mood(self, mood: Moods) -> bool:
