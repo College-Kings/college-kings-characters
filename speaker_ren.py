@@ -16,17 +16,16 @@ class Speaker(ADVCharacter):
         properties.setdefault("who_outlines", [(2, "#000")])
         properties.setdefault("what_outlines", [(2, "#000")])
 
-        if "gender" in properties and "who_color" not in properties:
-            gender: object = properties.pop("gender")
+        if "who_color" not in properties:
+            who_color: str = CharacterColor.get_any_color()
 
-            if gender == Gender.MALE:
-                who_color: str = CharacterColor.get_masculine_color()
-            elif gender == Gender.FEMALE:
-                who_color = CharacterColor.get_feminine_color()
-            elif gender == Gender.ANY:
-                who_color = CharacterColor.get_any_color()
-            else:
-                raise ValueError('Incorrect value for "gender" property')
+            if "gender" in properties:
+                gender: object = properties.pop("gender")
+
+                if gender == Gender.MALE:
+                    who_color = CharacterColor.get_masculine_color()
+                elif gender == Gender.FEMALE:
+                    who_color = CharacterColor.get_feminine_color()
 
             properties["who_color"] = who_color
 

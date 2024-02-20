@@ -1,5 +1,7 @@
 from typing import Optional, Protocol, runtime_checkable
 
+from renpy import config
+
 from game.characters.character_ren import Character
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.items.Item_ren import Item
@@ -8,7 +10,7 @@ from game.characters.CharacterService_ren import CharacterService
 from game.characters.Relationship_ren import Relationship
 from game.detective.Detective_ren import Detective
 
-name: str
+name: str = ""
 joinwolves: bool
 
 """renpy

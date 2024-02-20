@@ -1,9 +1,9 @@
-from abc import abstractmethod
 from typing import Protocol, runtime_checkable
+
+from renpy import config
+
 from game.characters.character_ren import Character
 from game.characters.character_traits_ren import CharacterTrait
-
-
 from game.characters.CharacterService_ren import CharacterService
 from game.phone.Message_ren import Message
 from game.characters.npcs.chloe_ren import Chloe
