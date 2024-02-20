@@ -180,7 +180,7 @@ class CharacterService:
     @staticmethod
     def is_fwbs(
         characters: Iterable["ICharacter"], target: Optional["ICharacter"] = None
-    ):
+    ) -> bool:
         if target is None:
             target = mc
 
