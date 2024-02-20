@@ -35,18 +35,15 @@ class Character(Protocol):
 
     @property
     @abstractmethod
-    def name(self) -> str:
-        ...
+    def name(self) -> str: ...
 
     @property
     @abstractmethod
-    def username(self) -> str:
-        ...
+    def username(self) -> str: ...
 
     @property
     @abstractmethod
-    def profile_pictures(self) -> tuple[str, ...]:
-        ...
+    def profile_pictures(self) -> tuple[str, ...]: ...
 
     @property
     def profile_picture(self) -> str:
