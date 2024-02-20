@@ -8,8 +8,7 @@ from game.characters.CharacterService_ren import CharacterService
 from game.characters.Relationship_ren import Relationship
 from game.detective.Detective_ren import Detective
 
-name: str
-joinwolves: bool
+name: str = ""
 
 """renpy
 init python:
@@ -50,6 +49,24 @@ class PlayableCharacter(Character, Protocol):
             npc
             for npc in self.relationships
             if isinstance(npc, NonPlayableCharacter) and npc.is_girlfriend(self)
+        )
+
+    @property
+    def partners(self) -> tuple[NonPlayableCharacter, ...]:
+        return tuple(
+            npc
+            for npc in self.relationships
+            if isinstance(npc, NonPlayableCharacter)
+            and npc.is_girlfriend(self)
+            and npc.is_fwb(self)
+        )
+
+    @property
+    def fwbs(self) -> tuple[NonPlayableCharacter, ...]:
+        return tuple(
+            npc
+            for npc in self.relationships
+            if isinstance(npc, NonPlayableCharacter) and npc.is_fwb(self)
         )
 
     def is_wolf(self) -> bool:
