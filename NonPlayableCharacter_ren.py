@@ -27,7 +27,18 @@ class NonPlayableCharacter(Character, Protocol):
     points: int = 0
 
     @property
-    def username(self) -> str: ...
+    def name(self) -> str:
+        try:
+            return self.__dict__["name"]
+        except KeyError:
+            return ""
+
+    @property
+    def username(self) -> str:
+        try:
+            return self.__dict__["username"]
+        except KeyError:
+            return ""
 
     @property
     def profile_pictures(self) -> tuple[str, ...]:
