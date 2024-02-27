@@ -10,7 +10,7 @@ init python:
 """
 
 
-class Charlie(NonPlayableCharacter):
+class Charli(NonPlayableCharacter):
     def __init__(self) -> None:
         self.relationships = {}
 
@@ -22,7 +22,7 @@ class Charlie(NonPlayableCharacter):
 
     @property
     def name(self) -> str:
-        return _("Charlie")
+        return _("Charli")
 
     @property
     def username(self) -> str:
