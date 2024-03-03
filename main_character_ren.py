@@ -7,7 +7,7 @@ init python:
 """
 
 
-class MainCharacter(PlayableCharacter):
+class MainCharacter(PlayableCharacter, object):
     def __init__(self) -> None:
         self._username = name
         self._profile_picture = self.profile_pictures[0]

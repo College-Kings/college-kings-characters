@@ -7,7 +7,7 @@ init python:
 """
 
 
-class SVCHousingOfficer(NonPlayableCharacter):
+class SVCHousingOfficer(NonPlayableCharacter, object):
     def __init__(self) -> None:
         self.relationships = {}
 

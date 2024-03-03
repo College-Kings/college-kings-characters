@@ -11,7 +11,7 @@ init python:
 """
 
 
-class Nora(NonPlayableCharacter):
+class Nora(NonPlayableCharacter, object):
     def __init__(self) -> None:
         self.relationships = {}
 

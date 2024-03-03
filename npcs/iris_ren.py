@@ -7,7 +7,7 @@ init python:
 """
 
 
-class Iris(NonPlayableCharacter):
+class Iris(NonPlayableCharacter, object):
     def __init__(self) -> None:
         self.relationships = {}
 

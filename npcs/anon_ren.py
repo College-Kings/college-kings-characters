@@ -7,7 +7,7 @@ init python:
 """
 
 
-class Anon(NonPlayableCharacter):
+class Anon(NonPlayableCharacter, object):
     def __init__(self) -> None:
         self.relationships = {}
 

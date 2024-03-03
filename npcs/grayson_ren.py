@@ -7,7 +7,7 @@ init python:
 """
 
 
-class Grayson(NonPlayableCharacter):
+class Grayson(NonPlayableCharacter, object):
     def __init__(self) -> None:
         self.relationships = {}
 

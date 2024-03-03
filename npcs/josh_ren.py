@@ -10,7 +10,7 @@ init python:
 """
 
 
-class Josh(NonPlayableCharacter):
+class Josh(NonPlayableCharacter, object):
     def __init__(self) -> None:
         self.relationships = {}
 
