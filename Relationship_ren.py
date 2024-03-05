@@ -1,7 +1,7 @@
 from enum import Enum
 
 """renpy
-init python:
+init -20 python:
 """
 
 

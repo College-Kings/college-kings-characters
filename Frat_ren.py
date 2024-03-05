@@ -11,5 +11,5 @@ class Frat(Enum):
     WOLVES = enum.auto()
 
     @classmethod
-    def _missing_(cls, value):
+    def _missing_(cls, value: object) -> "Frat":
         return cls.WOLVES
