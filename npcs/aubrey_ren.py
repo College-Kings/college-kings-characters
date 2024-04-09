@@ -1,3 +1,4 @@
+from typing import Any
 from game.characters.character_traits_ren import CharacterTrait
 from renpy.minstore import _
 
@@ -19,6 +20,11 @@ class Aubrey(NonPlayableCharacter, object):
 
         self.pending_simplr_messages = []
         self.simplr_messages = []
+
+    def __setstate__(self, state: dict[str, Any]) -> None:
+        self.__init__()
+
+        self.__dict__.update(state)
 
     @property
     def name(self) -> str:

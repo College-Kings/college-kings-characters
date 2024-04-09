@@ -1,3 +1,4 @@
+from typing import Any
 from game.characters.character_traits_ren import CharacterTrait
 from renpy.minstore import _
 
@@ -20,6 +21,11 @@ class Charli(NonPlayableCharacter, object):
         self.pending_simplr_messages = []
         self.simplr_messages = []
 
+    def __setstate__(self, state: dict[str, Any]) -> None:
+        self.__init__()
+
+        self.__dict__.update(state)
+
     @property
     def name(self) -> str:
         return _("Charli")
@@ -31,7 +37,3 @@ class Charli(NonPlayableCharacter, object):
     @property
     def traits(self) -> CharacterTrait:
         return CharacterTrait.COMPETITIVE
-
-    @property
-    def vindictive_characters(self) -> tuple[NonPlayableCharacter, ...]:
-        return ()

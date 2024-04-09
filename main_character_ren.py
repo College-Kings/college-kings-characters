@@ -1,3 +1,4 @@
+from typing import Any
 from PlayableCharacters_ren import PlayableCharacter
 
 name: str
@@ -14,3 +15,8 @@ class MainCharacter(PlayableCharacter, object):
 
         self.relationships = {}
         self.inventory = []
+
+    def __setstate__(self, state: dict[str, Any]) -> None:
+        self.__init__()
+
+        self.__dict__.update(state)

@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Any, Optional, Protocol, runtime_checkable
+from typing import Optional, Protocol, runtime_checkable
 
 from game.characters.npcs.chloe_ren import Chloe
 from game.characters.Moods_ren import Moods
@@ -40,11 +40,6 @@ class Character(Protocol):
             return NotImplemented
 
         return self.name == __value.name
-
-    def __setstate__(self, state: dict[str, Any]) -> None:
-        self.__init__()
-
-        self.__dict__.update(state)
 
     @property
     @abstractmethod

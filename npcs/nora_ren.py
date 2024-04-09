@@ -1,10 +1,12 @@
+from typing import Any
+from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.characters.character_traits_ren import CharacterTrait
+from game.characters.npcs.chloe_ren import Chloe
+from game.characters.npcs.chris_ren import Chris
 from renpy.minstore import _
 
-from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
-
-chloe: NonPlayableCharacter
-chris: NonPlayableCharacter
+chloe = Chloe()
+chris = Chris()
 
 """renpy
 init python:
@@ -20,6 +22,11 @@ class Nora(NonPlayableCharacter, object):
 
         self.pending_simplr_messages = []
         self.simplr_messages = []
+
+    def __setstate__(self, state: dict[str, Any]) -> None:
+        self.__init__()
+
+        self.__dict__.update(state)
 
     @property
     def name(self) -> str:

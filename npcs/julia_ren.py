@@ -1,3 +1,4 @@
+from typing import Any
 from renpy.minstore import _
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
@@ -16,6 +17,11 @@ class Julia(NonPlayableCharacter, object):
 
         self.pending_simplr_messages = []
         self.simplr_messages = []
+
+    def __setstate__(self, state: dict[str, Any]) -> None:
+        self.__init__()
+
+        self.__dict__.update(state)
 
     @property
     def name(self) -> str:
