@@ -1,5 +1,6 @@
 from typing import Iterable, Optional, Union
 
+from game.characters.npcs.svc_housing_officer_ren import SVCHousingOfficer
 from renpy import store
 import renpy.exports as renpy
 
@@ -19,10 +20,16 @@ init python:
 class CharacterService:
     @staticmethod
     def get_user_by_str(name: str) -> Character:
+        name = name.lower()
         try:
-            return getattr(store, name.lower().replace(" ", "_"))
+            return getattr(store, name.replace(" ", "_"))
         except AttributeError:
-            raise AttributeError(f"{name} is not a valid character.")
+            try:
+                if name == "svc housing officer":
+                    return SVCHousingOfficer()
+                return getattr(store, name.title().replace(" ", ""))()
+            except AttributeError:
+                raise AttributeError(f"{name} is not a valid character.")
 
     @staticmethod
     def get_user(character: Union[Character, str]) -> Character:
