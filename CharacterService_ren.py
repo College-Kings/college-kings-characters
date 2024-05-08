@@ -54,6 +54,12 @@ class CharacterService:
         if not hasattr(character, "relationships"):
             character.relationships = {}
 
+        if (
+            target.relationships.get(character, Relationship.STRANGER).value
+            > character.relationships.get(target, Relationship.STRANGER).value
+        ):
+            character.relationships[target] = target.relationships[character]
+
         return character.relationships.setdefault(target, Relationship.FRIEND)
 
     @staticmethod
