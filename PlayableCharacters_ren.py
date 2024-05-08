@@ -75,6 +75,10 @@ class PlayableCharacter(Character, Protocol):
             if isinstance(npc, NonPlayableCharacter) and npc.is_fwb(self)
         )
 
+    @property
+    def frat_name(self) -> str:
+        return self.frat.name.capitalize()
+
     def is_wolf(self) -> bool:
         return self.frat == Frat.WOLVES
 
