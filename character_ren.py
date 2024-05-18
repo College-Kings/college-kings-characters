@@ -16,8 +16,8 @@ init -10 python:
 @runtime_checkable
 class Character(Protocol):
     relationships: dict["Character", "Relationship"]
-    mood: Moods = Moods.NORMAL
-    money: int = 0
+    mood: Moods
+    money: int
 
     def __hash__(self) -> int:
         return hash(self.name)

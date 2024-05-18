@@ -22,8 +22,8 @@ class PlayableCharacter(Character, Protocol):
     _profile_picture: str
     inventory: list["Item"]
     detective: Optional["Detective"] = None
-    frat: Frat = Frat.WOLVES
-    daddy_name: str = "Daddy"
+    frat: Frat
+    daddy_name: str
 
     @property
     def name(self) -> str:

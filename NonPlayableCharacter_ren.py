@@ -22,7 +22,7 @@ class NonPlayableCharacter(Character, Protocol):
     pending_simplr_messages: list["Message"]
     simplr_messages: list["Message"]
 
-    points: int = 0
+    points: int
 
     @property
     def name(self) -> str:
