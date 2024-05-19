@@ -17,7 +17,6 @@ init -10 python:
 class Character(Protocol):
     relationships: dict["Character", "Relationship"]
     mood: Moods
-    money: int
 
     def __hash__(self) -> int:
         return hash(self.name)

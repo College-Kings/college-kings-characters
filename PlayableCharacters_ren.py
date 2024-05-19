@@ -20,6 +20,7 @@ init python:
 class PlayableCharacter(Character, Protocol):
     _username: str
     _profile_picture: str
+    money: int
     inventory: list["Item"]
     detective: Optional["Detective"] = None
     frat: Frat

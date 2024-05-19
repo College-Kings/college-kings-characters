@@ -12,6 +12,7 @@ class MainCharacter(PlayableCharacter, object):
     def __init__(self) -> None:
         self._username = name
         self._profile_picture = self.profile_pictures[0]
+        self.money = 0
         self.frat = Frat.WOLVES
 
         self.relationships = {}
