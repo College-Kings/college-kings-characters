@@ -17,6 +17,8 @@ class SVCHousingOfficer(NonPlayableCharacter, object):
         self.pending_simplr_messages = []
         self.simplr_messages = []
 
+        self.points = 0
+
     @property
     def name(self) -> str:
         return _("SVC Housing Officer")
