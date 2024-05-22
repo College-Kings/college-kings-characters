@@ -96,17 +96,24 @@ class CharacterService:
 
     @staticmethod
     def get_mood(character: "NonPlayableCharacter") -> "Moods":
+        try:
+            return character.mood
+        except AttributeError:
+            character.mood = Moods.NORMAL
+
         return character.mood
 
     @staticmethod
     def has_mood(character: "NonPlayableCharacter", mood: "Moods") -> bool:
+        try:
+            character.mood
+        except AttributeError:
+            character.mood = Moods.NORMAL
+
         return mood == character.mood or character.mood & mood == mood
 
     @staticmethod
     def set_mood(character: "NonPlayableCharacter", mood: "Moods") -> None:
-        if mood == character.mood:
-            return
-
         character.mood = mood
 
     @staticmethod
@@ -115,9 +122,6 @@ class CharacterService:
 
     @staticmethod
     def add_mood(character: "NonPlayableCharacter", mood: "Moods") -> None:
-        if mood == character.mood:
-            return
-
         if character.mood == Moods.NORMAL:
             character.mood = mood
             return
