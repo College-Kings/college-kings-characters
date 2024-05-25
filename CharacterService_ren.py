@@ -54,6 +54,14 @@ class CharacterService:
         if not hasattr(character, "relationships"):
             character.relationships = {}
 
+        if isinstance(target.relationships, set):
+            target.relationships = {r: Relationship.FWB for r in target.relationships}
+
+        if isinstance(character.relationships, set):
+            character.relationships = {
+                r: Relationship.FWB for r in character.relationships
+            }
+
         if (
             target.relationships.get(character, Relationship.STRANGER).value
             > character.relationships.get(target, Relationship.STRANGER).value
