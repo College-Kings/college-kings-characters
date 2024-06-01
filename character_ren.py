@@ -15,6 +15,8 @@ init -10 python:
 
 @runtime_checkable
 class Character(Protocol):
+    _profile_pictures: tuple[str, ...]
+
     relationships: dict["Character", "Relationship"]
     mood: Moods
 
@@ -45,8 +47,12 @@ class Character(Protocol):
     def name(self) -> str: ...
 
     @property
-    @abstractmethod
-    def username(self) -> str: ...
+    def username(self) -> str:
+        return (
+            self.__dict__.get("username")
+            or self.__dict__.get("_username")
+            or self.__dict__.get("name", "")
+        )
 
     @property
     @abstractmethod
@@ -55,9 +61,17 @@ class Character(Protocol):
     @property
     def profile_picture(self) -> Optional[str]:
         try:
-            return self.profile_pictures[0]
+            return self._profile_pictures[0]
         except (AttributeError, IndexError):
-            return None
+            self.set_profile_pictures()
+
+        try:
+            return self._profile_pictures[0]
+        except IndexError:
+            return "characters/images/chloe/chloe.png"
+
+    def set_profile_pictures(self) -> None:
+        self._profile_pictures = self.profile_pictures
 
     # region Moods
     def has_mood(self, mood: Moods) -> bool:

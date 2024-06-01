@@ -1,13 +1,14 @@
 from typing import Optional, Protocol, runtime_checkable
 
-from renpy import config
-
 from game.characters.character_ren import Character
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.items.Item_ren import Item
 from game.characters.Frat_ren import Frat
 from game.characters.CharacterService_ren import CharacterService
 from game.detective.Detective_ren import Detective
+
+from renpy import config
+import renpy.exports as renpy
 
 name: str = ""
 
@@ -32,7 +33,11 @@ class PlayableCharacter(Character, Protocol):
 
     @property
     def username(self) -> str:
-        return self._username
+        return (
+            self.__dict__.get("_username")
+            or self.__dict__.get("username")
+            or self.__dict__.get("name", "")
+        )
 
     @username.setter
     def username(self, value: str) -> None:
@@ -44,7 +49,10 @@ class PlayableCharacter(Character, Protocol):
 
     @property
     def profile_picture(self) -> str:
-        return self._profile_picture
+        if renpy.loadable(self._profile_picture):
+            return self._profile_picture
+        else:
+            return self.profile_pictures[0]
 
     @profile_picture.setter
     def profile_picture(self, value: str) -> None:
