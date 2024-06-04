@@ -9,6 +9,8 @@ init python:
 
 class SVCHousingOfficer(NonPlayableCharacter, object):
     def __init__(self) -> None:
+        self.points = 0
+
         self.relationships = {}
 
         self.pending_text_messages = []
@@ -16,8 +18,6 @@ class SVCHousingOfficer(NonPlayableCharacter, object):
 
         self.pending_simplr_messages = []
         self.simplr_messages = []
-
-        self.points = 0
 
     @property
     def name(self) -> str:

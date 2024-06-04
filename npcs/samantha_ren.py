@@ -9,6 +9,8 @@ init python:
 
 class Samantha(NonPlayableCharacter, object):
     def __init__(self) -> None:
+        self.points = 0
+
         self.relationships = {}
 
         self.pending_text_messages = []
