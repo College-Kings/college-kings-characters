@@ -12,6 +12,7 @@ class Sebastian(NonPlayableCharacter, object):
         self.points = 0
 
         self.relationships = {}
+        self.mood = Moods.NORMAL
 
         self.pending_text_messages = []
         self.text_messages = []

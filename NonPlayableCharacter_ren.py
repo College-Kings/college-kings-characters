@@ -1,11 +1,13 @@
 from typing import Protocol, runtime_checkable
 
-from renpy import config
-
+from game.characters.Moods_ren import Moods
+from game.characters.Relationship_ren import Relationship
 from game.characters.character_ren import Character
 from game.characters.character_traits_ren import CharacterTrait
 from game.characters.CharacterService_ren import CharacterService
 from game.phone.Message_ren import Message
+
+from renpy import config
 from renpy.display.displayable import Displayable
 from renpy.display.transform import Transform
 
@@ -22,13 +24,16 @@ class NonPlayableCharacter(Character, Protocol):
     _profile_picture: str
     _profile_picture_65x65: "Displayable"
 
+    points: int
+
+    relationships: dict["Character", "Relationship"]
+    mood: Moods
+
     pending_text_messages: list["Message"]
     text_messages: list["Message"]
 
     pending_simplr_messages: list["Message"]
     simplr_messages: list["Message"]
-
-    points: int
 
     def __repr__(self) -> str:
         try:

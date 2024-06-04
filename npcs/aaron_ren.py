@@ -1,3 +1,4 @@
+from game.characters.Moods_ren import Moods
 from renpy.minstore import _
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
@@ -12,6 +13,7 @@ class Aaron(NonPlayableCharacter, object):
         self.points = 0
 
         self.relationships = {}
+        self.mood = Moods.NORMAL
 
         self.pending_text_messages = []
         self.text_messages = []
