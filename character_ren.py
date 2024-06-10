@@ -24,7 +24,7 @@ class Character(Protocol):
         return hash(self.name)
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}({self.name})"
+        return f"{self.__class__.__name__}({self.__dict__})"
 
     def __str__(self) -> str:
         if self.name:

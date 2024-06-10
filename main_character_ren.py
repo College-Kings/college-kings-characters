@@ -18,3 +18,6 @@ class MainCharacter(PlayableCharacter, object):
 
         self.relationships = {}
         self.inventory = []
+
+    def __repr__(self) -> str:
+        return super().__repr__()
