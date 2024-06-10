@@ -1,4 +1,4 @@
-from typing import Iterable, Optional, Union
+from typing import Any, Iterable, Optional, Union
 
 from game.characters.npcs.svc_housing_officer_ren import SVCHousingOfficer
 from renpy import store
@@ -69,6 +69,35 @@ class CharacterService:
             character.relationships[target] = target.relationships[character]
 
         return character.relationships.setdefault(target, Relationship.FRIEND)
+
+    @staticmethod
+    def compat_get_max_rel(
+        npc_vars: dict[str, Any], target_vars: dict[str, Any]
+    ) -> "Relationship":
+        current_rel = Relationship.FRIEND
+
+        mc_rels = target_vars.get("relationships", {})
+        npc_name = npc_vars["name"]
+
+        # region MC
+        mc_rel = mc_rels.get(npc_name, Relationship.FRIEND)
+        if mc_rel.value > current_rel.value:
+            current_rel = mc_rel
+        # endregion
+
+        # region _relationship
+        npc_rel = npc_vars.get("_relationship", Relationship.FRIEND)
+        if npc_rel.value > current_rel.value:
+            current_rel = npc_rel
+        # endregion
+
+        # region relationships
+        npc_rel = npc_vars.get("relationship", Relationship.FRIEND)
+        if npc_rel.value > current_rel.value:
+            current_rel = npc_rel
+        # endregion
+
+        return current_rel
 
     @staticmethod
     def has_relationship(
