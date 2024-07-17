@@ -1,5 +1,6 @@
-from typing import Protocol, runtime_checkable
+from typing import Optional, Protocol, runtime_checkable
 
+from game.characters.Frat_ren import Frat
 from game.characters.Moods_ren import Moods
 from game.characters.Relationship_ren import Relationship
 from game.characters.character_ren import Character
@@ -99,6 +100,10 @@ class NonPlayableCharacter(Character, Protocol):
     @property
     def preferred_reputation(self) -> "Reputations":
         raise NotImplementedError
+
+    @property
+    def frat_requirement(self) -> Optional[Frat]:
+        return None
 
 
 config.ex_rollback_classes.append(NonPlayableCharacter)

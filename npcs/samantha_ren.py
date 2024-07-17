@@ -1,3 +1,4 @@
+from game.characters.Frat_ren import Frat
 from game.characters.Moods_ren import Moods
 from game.reputation.Reputations_ren import Reputations
 from renpy.minstore import _
@@ -33,3 +34,7 @@ class Samantha(NonPlayableCharacter, object):
     @property
     def preferred_reputation(self) -> "Reputations":
         return Reputations.LOYAL
+
+    @property
+    def frat_requirement(self) -> "Frat":
+        return Frat.APES
