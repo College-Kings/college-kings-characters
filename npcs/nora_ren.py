@@ -1,11 +1,13 @@
+from game.characters.Moods_ren import Moods
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.characters.character_traits_ren import CharacterTrait
 from game.characters.npcs.chloe_ren import Chloe
 from game.characters.npcs.chris_ren import Chris
+from game.reputation.Reputations_ren import Reputations
 from renpy.minstore import _
 
-chloe = Chloe()
-chris = Chris()
+chloe: Chloe
+chris: Chris
 
 """renpy
 init python:
@@ -40,3 +42,7 @@ class Nora(NonPlayableCharacter, object):
     @property
     def vindictive_characters(self) -> tuple[NonPlayableCharacter, ...]:
         return (chris, chloe)
+
+    @property
+    def preferred_reputation(self) -> "Reputations":
+        return Reputations.CONFIDENT

@@ -1,3 +1,5 @@
+from game.characters.Moods_ren import Moods
+from game.reputation.Reputations_ren import Reputations
 from renpy.minstore import _
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
@@ -27,3 +29,7 @@ class MsRose(NonPlayableCharacter, object):
     @property
     def username(self) -> str:
         return _("Ms Rose")
+
+    @property
+    def preferred_reputation(self) -> "Reputations":
+        return Reputations.CONFIDENT

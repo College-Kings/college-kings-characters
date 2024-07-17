@@ -7,6 +7,7 @@ from game.characters.character_traits_ren import CharacterTrait
 from game.characters.CharacterService_ren import CharacterService
 from game.phone.Message_ren import Message
 
+from game.reputation.Reputations_ren import Reputations
 from renpy import config
 from renpy.display.displayable import Displayable
 from renpy.display.transform import Transform
@@ -94,6 +95,10 @@ class NonPlayableCharacter(Character, Protocol):
     @property
     def is_talkative(self) -> bool:
         return CharacterTrait.TALKATIVE in self.traits
+
+    @property
+    def preferred_reputation(self) -> "Reputations":
+        raise NotImplementedError
 
 
 config.ex_rollback_classes.append(NonPlayableCharacter)

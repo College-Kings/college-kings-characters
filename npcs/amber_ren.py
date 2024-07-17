@@ -1,4 +1,6 @@
+from game.characters.Moods_ren import Moods
 from game.characters.character_traits_ren import CharacterTrait
+from game.reputation.Reputations_ren import Reputations
 from renpy.minstore import _
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
@@ -36,3 +38,7 @@ class Amber(NonPlayableCharacter, object):
     @property
     def vindictive_characters(self) -> tuple[NonPlayableCharacter, ...]:
         return ()
+
+    @property
+    def preferred_reputation(self) -> "Reputations":
+        return Reputations.POPULAR
