@@ -43,6 +43,9 @@ class NonPlayableCharacter(Character, Protocol):
         except AttributeError:
             return f"{self.__class__.__name__}({self.__dict__})"
 
+    def __str__(self) -> str:
+        return self.name
+
     @property
     def name(self) -> str:
         try:
