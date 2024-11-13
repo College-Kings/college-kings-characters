@@ -132,6 +132,9 @@ class Character(Protocol):
     def is_ex(self, target: "Character") -> bool:
         return self.has_relationship(Relationship.EX, target)
 
+    def any_fwb(self, *characters: "Character") -> bool:
+        return any(self.is_fwb(character) for character in characters)
+
     # endregion Relationships
 
 
