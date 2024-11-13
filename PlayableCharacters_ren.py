@@ -74,9 +74,7 @@ class PlayableCharacter(Character, Protocol):
         return tuple(
             npc
             for npc in self.relationships
-            if isinstance(npc, NonPlayableCharacter)
-            and npc.is_girlfriend(self)
-            and npc.is_fwb(self)
+            if isinstance(npc, NonPlayableCharacter) and (npc.is_girlfriend(self) or npc.is_fwb(self))
         )
 
     @property
