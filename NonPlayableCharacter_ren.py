@@ -102,7 +102,7 @@ class NonPlayableCharacter(Character, Protocol):
 
     @property
     def preferred_reputation(self) -> "Reputations":
-        raise NotImplementedError
+        raise NotImplementedError("preferred_reputation")
 
     @property
     def frat_requirement(self) -> Optional[Frat]:
