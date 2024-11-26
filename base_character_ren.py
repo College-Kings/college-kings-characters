@@ -1,9 +1,10 @@
 from abc import abstractmethod
-from typing import Optional, Protocol, runtime_checkable
+from typing import Any, Optional, Protocol, runtime_checkable
 
 from game.characters.npcs.chloe_ren import Chloe
 from game.characters.Moods_ren import Moods
 from game.characters.Relationship_ren import Relationship
+from game.minigames.kings.kings_data_ren import KingsData
 
 chloe: Chloe
 name: str
@@ -14,11 +15,16 @@ init -10 python:
 
 
 @runtime_checkable
-class Character(Protocol):
+class BaseCharacter(Protocol):
     _profile_pictures: tuple[str, ...]
 
-    relationships: dict["Character", "Relationship"]
+    relationships: dict["BaseCharacter", "Relationship"]
     mood: Moods
+
+    _kings_data: Optional["KingsData"] = None
+
+    def __call__(self, *args: Any, **kwds: Any) -> str:
+        return str(self)
 
     def __hash__(self) -> int:
         return hash(self.name)
@@ -37,7 +43,7 @@ class Character(Protocol):
         return self.__class__.__name__
 
     def __eq__(self, __value: object) -> bool:
-        if not isinstance(__value, Character):
+        if not isinstance(__value, BaseCharacter):
             return NotImplemented
 
         return self.name == __value.name
@@ -98,45 +104,58 @@ class Character(Protocol):
 
     # endregion Moods
     # region Relationships
-    def get_relationship(self, target: "Character") -> "Relationship":
+    def get_relationship(self, target: "BaseCharacter") -> "Relationship":
         return self.relationships.setdefault(target, Relationship.FRIEND)
 
     def has_relationship(
-        self, relationship: "Relationship", target: "Character"
+        self, relationship: "Relationship", target: "BaseCharacter"
     ) -> bool:
         return self.get_relationship(target) == relationship
 
-    def is_exclusive_girlfriend(self, target: "Character") -> bool:
+    def is_exclusive_girlfriend(self, target: "BaseCharacter") -> bool:
         return any(
             character.is_girlfriend(target)
             for character in target.relationships
             if character != self
         )
 
-    def is_girlfriend(self, target: "Character") -> bool:
+    def is_girlfriend(self, target: "BaseCharacter") -> bool:
         return self.has_relationship(Relationship.GIRLFRIEND, target)
 
-    def is_exclusive(self, target: "Character") -> bool:
+    def is_exclusive(self, target: "BaseCharacter") -> bool:
         return any(
             character.is_girlfriend(target) or character.is_fwb(target)
             for character in target.relationships
             if character != self
         )
 
-    def is_fwb(self, target: "Character") -> bool:
+    def is_fwb(self, target: "BaseCharacter") -> bool:
         return self.has_relationship(Relationship.FWB, target)
 
-    def is_friend(self, target: "Character") -> bool:
+    def is_friend(self, target: "BaseCharacter") -> bool:
         return self.has_relationship(Relationship.FRIEND, target)
 
-    def is_ex(self, target: "Character") -> bool:
+    def is_ex(self, target: "BaseCharacter") -> bool:
         return self.has_relationship(Relationship.EX, target)
 
-    def any_fwb(self, *characters: "Character") -> bool:
+    def any_fwb(self, *characters: "BaseCharacter") -> bool:
         return any(self.is_fwb(character) for character in characters)
 
     # endregion Relationships
 
+    # region Kings Minigame
+    @property
+    def kings(self) -> "KingsData":
+        try:
+            self._kings_data
+        except AttributeError:
+            self._kings_data = KingsData()
+
+        if self._kings_data is None:
+            self._kings_data = KingsData()
+
+        return self._kings_data
+    # endregion Kings Minigame
 
 # _profile_pictures: list[str] = field(default_factory=list)
 # _profile_picture: str = ""

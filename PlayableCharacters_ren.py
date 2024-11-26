@@ -1,6 +1,6 @@
 from typing import Optional, Protocol, runtime_checkable
 
-from game.characters.character_ren import Character
+from game.characters.base_character_ren import BaseCharacter
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
 from game.items.Item_ren import Item
 from game.characters.Frat_ren import Frat
@@ -18,7 +18,7 @@ init python:
 
 
 @runtime_checkable
-class PlayableCharacter(Character, Protocol):
+class PlayableCharacter(BaseCharacter, Protocol):
     _username: str
     _profile_picture: str
     money: int

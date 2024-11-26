@@ -1,7 +1,8 @@
 from PlayableCharacters_ren import PlayableCharacter
 from Frat_ren import Frat
+from game.minigames.kings.kings_data_ren import KingsData
 
-name: str
+name = "Alex"
 
 """renpy
 init python:
@@ -19,5 +20,14 @@ class MainCharacter(PlayableCharacter, object):
         self.relationships = {}
         self.inventory = []
 
+        self._kings_data = KingsData()
+
     def __repr__(self) -> str:
         return super().__repr__()
+
+    @property
+    def kings(self) -> "KingsData":
+        if self._kings_data is None:
+            self._kings_data = KingsData()
+
+        return self._kings_data

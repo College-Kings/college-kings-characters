@@ -1,3 +1,5 @@
+from game.characters.Moods_ren import Moods
+from game.minigames.kings.kings_data_ren import KingsData
 from renpy.minstore import _
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
@@ -27,3 +29,15 @@ class Sebastian(NonPlayableCharacter, object):
     @property
     def username(self) -> str:
         return _("Big Seb")
+
+    @property
+    def kings(self) -> "KingsData":
+        try:
+            self._kings_data
+        except AttributeError:
+            self._kings_data = KingsData()
+
+        if self._kings_data is None:
+            self._kings_data = KingsData()
+
+        return self._kings_data
