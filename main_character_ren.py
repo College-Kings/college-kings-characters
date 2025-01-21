@@ -24,7 +24,7 @@ class MainCharacter(PlayableCharacter, object):
         self.relationships = {}
         self.inventory = []
 
-        self._kings_data = KingsData()
+        self._kings_data = None
 
     def __repr__(self) -> str:
         return super().__repr__()
@@ -38,6 +38,11 @@ class MainCharacter(PlayableCharacter, object):
 
     @property
     def kings(self) -> "KingsData":
+        try:
+            self._kings_data
+        except AttributeError:
+            self._kings_data = KingsData()
+
         if self._kings_data is None:
             self._kings_data = KingsData()
 

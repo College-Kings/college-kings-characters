@@ -22,6 +22,8 @@ class Sebastian(NonPlayableCharacter, object):
         self.pending_simplr_messages = []
         self.simplr_messages = []
 
+        self._kings_data = None
+
     @property
     def name(self) -> str:
         return _("Sebastian")

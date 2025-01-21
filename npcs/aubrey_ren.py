@@ -27,7 +27,7 @@ class Aubrey(NonPlayableCharacter, object):
         self.pending_simplr_messages = []
         self.simplr_messages = []
 
-        self._kings_data = KingsData()
+        self._kings_data = None
 
     @property
     def name(self) -> str:
@@ -48,7 +48,7 @@ class Aubrey(NonPlayableCharacter, object):
     @property
     def preferred_reputation(self) -> "Reputations":
         return Reputations.POPULAR
-    
+
     @property
     def kings(self) -> "KingsData":
         try:
