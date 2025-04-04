@@ -1,3 +1,4 @@
+from game.characters.Moods_ren import Moods
 from game.characters.character_traits_ren import CharacterTrait
 from renpy.minstore import _
 
