@@ -8,7 +8,7 @@ init python:
 """
 
 
-class Iris(NonPlayableCharacter, object):
+class MrRose(NonPlayableCharacter, object):
     def __init__(self) -> None:
         self.points = 0
 
@@ -23,8 +23,9 @@ class Iris(NonPlayableCharacter, object):
 
     @property
     def name(self) -> str:
-        return _("Iris")
+        return _("Mr Rose")
 
     @property
     def username(self) -> str:
-        return _("Iris")
+        return _("Ms Rose")
+    

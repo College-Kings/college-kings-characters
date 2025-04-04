@@ -1,3 +1,4 @@
+from game.characters.Moods_ren import Moods
 from renpy.minstore import _
 
 from game.characters.NonPlayableCharacter_ren import NonPlayableCharacter
